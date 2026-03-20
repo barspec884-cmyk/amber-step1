@@ -680,7 +680,7 @@
 
               <!-- 3. 度数 -->
               <div class="input-group column">
-                <div><span class="label-main">度数</span><span class="label-sub">Strength (%):</span></div>
+                <div><span class="label-main">アルコール度数</span><span class="label-sub">Alcohol by Volume (%):</span></div>
                 <div class="custom-picker">
                   <select id="abvInt" class="custom-select abv-int"></select>
                   <span class="abv-dot">.</span>
@@ -1157,7 +1157,7 @@
           chip.textContent = opt.label;
           selectedChips.appendChild(chip);
         });
-        if (appliedOtherText && appliedOtherText.trim().length > 0) { ... }
+        if (appliedOtherText && appliedOtherText.trim().length > 0) {
           const chip = document.createElement('span');
           chip.className = 'chip';
           chip.textContent = `その他: ${appliedOtherText.trim()}`;
