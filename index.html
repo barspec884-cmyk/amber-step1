@@ -5,7 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Amber Nexus - Step 1</title>
 
-  <style>
+  <!-- Firebase SDK -->
+
+
+
+
+
+
+
+
+
+
+<style>
     :root {
       --wood-bg: #2a1610;
       --card-bg: #f4ebd8;
@@ -890,7 +901,7 @@
       const out = document.getElementById("abvValue");
       const hidden = document.getElementById("abvHidden");
 
-      for (let i = 40; i <= 98; i++) {
+      for (let i = 37; i <= 98; i++) {
         const opt = document.createElement("option");
         opt.value = String(i);
         opt.textContent = String(i);
@@ -903,14 +914,14 @@
         decSel.appendChild(opt);
       }
 
-      intSel.value = "46";
+      intSel.value = "43";
       decSel.value = "0";
 
       function updateABV() {
         const intPart = parseInt(intSel.value || "0", 10);
         const decPart = parseInt(decSel.value || "0", 10);
         const abv = Number((intPart + decPart / 10).toFixed(1));
-        if (abv < 40.0 || abv > 98.0) {
+        if (abv < 37.0 || abv > 98.0) {
           out.textContent = "範囲外";
           hidden.value = "";
         } else {
@@ -1374,7 +1385,7 @@
     const countryInput = document.getElementById('country-input');
 
     // data.json を読み込み、datalist と逆引きデータを構築
-    fetch('./data.json')
+    fetch('data.json')
       .then(r => r.json())
       .then(data => {
         whiskeyData = data;
@@ -1482,6 +1493,7 @@
       updateLocationLists();
       updateJsonPreview();
     });
+
   </script>
 </body>
 </html>
