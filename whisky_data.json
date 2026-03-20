@@ -1,0 +1,294 @@
+﻿{
+  "JAPANESE": {
+    "中部": {
+      "愛知県": ["サントリー知多蒸留所 (Suntory Chita Distillery) [2022年-]", "清洲桜醸造 (Kiyosu Sakura Brewery) [1936年-]", "碧南蒸留所 (Hekinan Distillery) [2022年-]"],
+      "岐阜県": ["飛騨高山蒸留所 (Hida Takayama Distillery) [2024年-]", "養老蒸留所 (Yoro Distillery) [2023年-]"],
+      "三重県": ["伊勢蒸留所 (Ise Distillery) [2019年-]"],
+      "山梨県": ["Far Yeast 源流蒸留所 (Far Yeast Genryu Distillery) [2022年-]", "南アルプスワインアンドビバレッジ 笛吹工場 (Minami Alps Wine & Beverage Fuefuki Factory) [2022年-]", "韮崎御勅使蒸留所 (Nirasaki Midai Distillery) [2020年-]", "白州蒸留所 (Hakushu Distillery) [2022年-]", "富士北麓蒸留所 (Fuji Hokuroku Distillery) [2023年-]", "富嶽蒸留所 (Fugaku Distillery) [1952年-]"],
+      "新潟県": ["吉田電材蒸留所 (Yoshida Denzai Distillery) [2022年-]", "新潟亀田蒸留所 (Niigata Kameda Distillery) [2018年-]", "深沢原蒸留所 (Fukazawara Distillery) [2023年-]", "忍蒸留所 (Shinobu Distillery) [2021年-]"],
+      "静岡県": ["Distillery Water Dragon (Distillery Water Dragon) [2020年-]", "ガイアフロー静岡蒸留所 (Gaiaflow Shizuoka Distillery) [1973年-]", "井川蒸留所 (Ikawa Distillery) [2014年-]", "富士かぐや蒸留所 (Fuji Kaguya Distillery) [2012年-]", "富士御殿場蒸留所 (Fuji Gotemba Distillery) [2023年-]"],
+      "石川県": ["オリエンタル金沢蒸留所 (Oriental Kanazawa Distillery) [2022年-]", "武部織物 (Takebe Orimono) [2023年-]"],
+      "長野県": ["マルス駒ヶ岳蒸留所 (Mars Komagatake Distillery) [2023年-]", "軽井沢ウイスキー蒸留所 (Karuizawa Whisky Distillery) [2022年-]", "戸狩蒸留所 (Togari Distillery) [1919年(免許)/1984年(本格稼働)-]", "御代田蒸留所 (Miyota Distillery) [2017年-]", "小諸蒸留所 (Komoro Distillery) [2023年-]", "飯山マウンテンファーム蒸留所 (Iiyama Mountain Farm Distillery) [2022年-]", "野沢温泉蒸留所 (Nozawa Onsen Distillery) [不明-]"],
+      "富山県": ["三郎丸蒸留所 (Saburomaru Distillery) [2015年-]"],
+      "福井県": ["三国蒸留所 (Mikuni Distillery) [2022年-]"]
+    },
+    "四国": {
+      "愛媛県": ["梅美人酒造 (Umebijin Shuzo) [2026年-]"],
+      "徳島県": ["阿波乃蒸留所 (Awano Distillery) [2016年-]"]
+    },
+    "関東": {
+      "茨城県": ["高藏蒸留所 (Takazo Distillery) [2023年-]", "八郷蒸留所 (Yasato Distillery) [2024年-]"],
+      "群馬県": ["倉渕蒸留所 (Kurabuchi Distillery) [不明-]", "北軽井沢蒸留所 (Kita-Karuizawa Distillery) [2022年-]"],
+      "埼玉県": ["羽生蒸留所 (Hanyu Distillery) [2018年-]", "鴻巣蒸留所 (Konosu Distillery) [2018年-]", "秩父蒸留所 (Chichibu Distillery) [2023年-]", "秩父第2蒸留所 (Chichibu Distillery No. 2) [2023年-]"],
+      "神奈川県": ["湘南蒸留所 (Shonan Distillery) [2022年-]", "丹沢蒸留所 (Tanzawa Distillery) [2023年-]"],
+      "千葉県": ["mitosaya薬草園蒸留所 (mitosaya botanical distillery) [2023年-]", "須藤本家 (Sudo Honke) [2018年-]"],
+      "栃木県": ["Stork Valley Distillery (Stork Valley Distillery) [2020年-]", "小山蒸留所 (Oyama Distillery) [2017年-]", "日光蒸留所 (Nikko Distillery) [2022年-]"]
+    },
+    "中国": {
+      "岡山県": ["岡山蒸留所 (Okayama Distillery) [2025年-]"],
+      "広島県": ["SAKURAO DISTILLERY (SAKURAO DISTILLERY) [2023年-]"],
+      "鳥取県": ["境港蒸留所 (Sakaiminato Distillery) [1923年-]", "倉吉蒸留所 (Kurayoshi Distillery) [2023年-]"]
+    },
+    "沖縄": {
+      "沖縄県": ["許田蒸留所 (Kyoda Distillery) [不明(※ブレンド主体)-]", "州崎蒸留所 (Shuzaki Distillery) [2016年-]", "那覇蒸留所 (Naha Distillery) [2021年-]"]
+    },
+    "東北": {
+      "岩手県": ["南部美人 本社蔵 (Nanbu Bijin Main Brewery) [2022年-]"],
+      "宮城県": ["宮城峡蒸留所 (Miyagikyo Distillery) [2016年-]"],
+      "山形県": ["月光川蒸留所 (Gekkogawa Distillery) [2008年-]", "出羽蒸留所 (Dewa Distillery) [2020年-]", "遊佐蒸留所 (Yuza Distillery) [1941年(2021年復活)-]"],
+      "秋田県": ["秋田蒸留所 (Akita Distillery) [2016年-]"],
+      "福島県": ["安積蒸留所 (Asaka Distillery) [1963年-]", "玉野アセンド蒸留所 (Tamano Ascend Distillery) [2022年-]", "天鏡蒸留所 (Tenkyo Distillery) [2023年-]"]
+    },
+    "九州": {
+      "宮崎県": ["SATO DISTILLERY (SATO DISTILLERY) [2022年-]", "尾鈴山蒸留所 (Osuzuyama Distillery) [2023年-]"],
+      "熊本県": ["山鹿蒸留所 (Yamaga Distillery) [2018年-]", "山都蒸留所 (Yamato Distillery) [2023年-]", "常楽酒造 (Joraku Shuzo) [2023年-]", "大石酒造場 (Oishi Shuzojo) [1969年-]", "田野蒸留所 (Tano Distillery) [2023年-]"],
+      "鹿児島県": ["さつま司蒸溜蔵 (Satsuma Tsukasa Distillery) [2023年-]", "マルス津貫蒸留所 (Mars Tsunuki Distillery) [2022年-]", "横川蒸留所 (Yokogawa Distillery) [2022年-]", "嘉之助蒸留所 (Kanosuke Distillery) [1955年(2000年閉鎖)-]", "火の神蒸留所 (Hinokami Distillery) [1985年-]", "御岳蒸留所 (Ontake Distillery) [不明-]", "小牧蒸留所 (Komaki Distillery) [2022年-]", "大隅酒造 (Osumi Shuzo) [1973年-]", "日置蒸留所 (Hioki Distillery) [2022年-]", "菱田蒸留所 (Hishida Distillery) [2020年-]"],
+      "大分県": ["久住蒸留所 (Kuju Distillery) [2021年-]"],
+      "長崎県": ["波佐見蒸留所 (Hasami Distillery) [2023年-]", "梅ヶ枝酒造 (Umegae Shuzo) [2018年-]"],
+      "福岡県": ["ニッカウヰスキー 門司工場 (Nikka Whisky Moji Factory) [2023年-]", "新道蒸留所 (Shindo Distillery) [2022年-]", "朝倉蒸留所 (Asakura Distillery) [2021年-]", "八女蒸留所 (Yame Distillery) [2021年-]"]
+    },
+    "関西": {
+      "京都府": ["京都みやこ蒸留所 (Kyoto Miyako Distillery) [2023年-]"],
+      "滋賀県": ["長濱蒸留所 (Nagahama Distillery) [2022年-]", "琵琶湖蒸留所 (Biwako Distillery) [2023年-]"],
+      "大阪府": ["山崎蒸留所 (Yamazaki Distillery) [2014年-]", "泉州蒸留所 (Senshu Distillery) [1972年-]", "藩蔵屋敷 北新地CO・LABO (Hanzo Yashiki Kitashinchi CO・LABO) [2019年-]"],
+      "奈良県": ["神息酒造 奈良蒸留所 (Kamiki Shuzo Nara Distillery) [2018年-]"],
+      "兵庫県": ["海峡蒸留所 (Kaikyo Distillery) [2021年-]", "江井ヶ嶋蒸留所 (Eigashima Distillery) [2022年-]", "神戸蒸留所 (Kobe Distillery) [2020年-]", "西山酒造場 (Nishiyama Shuzojo) [2020年-]", "丹波蒸留所 (Tamba Distillery) [2022年-]", "養父蒸留所 (Yabu Distillery) [2019年-]", "六甲山蒸留所 (Rokkosan Distillery) [2022年-]"],
+      "和歌山県": ["紀州熊野蒸留所 (Kishu Kumano Distillery) [2020年-]"]
+    },
+    "北海道": {
+      "北海道": ["Taiki Cosmic Glen Distillery (Taiki Cosmic Glen Distillery) [2017年-]", "サワマチ蒸留所 (Sawamachi Distillery) [2022年-]", "ディ・トリッパー蒸留所 (Di Tripper Distillery) [2016年-]", "ニセコ蒸留所 (Niseko Distillery) [2018年-]", "厚岸蒸留所 (Akkeshi Distillery) [2022年-]", "札幌酒精工業 札幌工場 (Sapporo Shusei Kogyo Sapporo Factory) [2022年-]", "十勝蒸留所 (Tokachi Distillery) [2022年-]", "千歳蒸留所 (Chitose Distillery) [2022年-]", "当別蒸留所 (Tobetsu Distillery) [2021年-]", "苫小牧蒸留所 (Tomakomai Distillery) [2019年-]", "馬追蒸留所 (Maoi Distillery) [2022年-]", "余市蒸留所 (Yoichi Distillery) [2022年-]", "利尻蒸留所 (Rishiri Distillery) [2020年-]"]
+    }
+  },
+  "SOCATCH": {
+    "スペイサイド": {
+      "アベラワー": ["アベラワー (Aberlour) [不明-]", "グレンアラヒー (GlenAllachie) [1967-]", "グレンダラン (Glendullan) [1896-]", "ダルユーイン (Dailuaine) [2013-]", "ベンリネス (Benrinnes) [1893-]"],
+      "キース": ["アルタベーン (Allt-A-Bhainne) [1812-]", "オルトモーア (Aultmore) [1790-]", "グレンキース (Glen Keith) [不明-]", "グレントファース (Glentauchers) [1845-]", "ストラスアイラ (Strathisla) [2014-]", "ストラスミル (Strathmill) [1898-]"],
+      "キャロン": ["インペリアル (Imperial) [1897-]", "ダルムナック (Dalmunach) [2013-]"],
+      "ロセス": ["オスロスク (Auchroisk) [1826-]", "キャパドニック (Caperdonich) [1839-]", "グレングラント (Glen Grant) [2017-]", "グレンスペイ (Glen Spey) [1798-]", "グレンロセス (The Glenrothes) [1826-]", "スペイバーン (Speyburn) [1825-]"],
+      "ノッカンドゥ": ["カーデュ (Cardhu) [2016-]", "タムデュー (Tamdhu) [1833-]", "ノッカンドゥ (Knockando) [1965-]"],
+      "ダフタウン": ["キニンヴィ (Kininvie) [1990-]", "グレンフィディック (Glenfiddich) [1824-]", "コンヴァルモア (Convalmore) [1825-]", "ダフタウン (Dufftown) [1819-]", "バルヴェニー (Balvenie) [2017-]", "ピティヴァイック (Pittyvaich) [2014-]", "モートラック (Mortlach) [1897-]"],
+      "クライゲラキ": ["クライゲラキ (Craigellachie) [1843-]"],
+      "バリンダロッホ": ["クラガンモア (Cragganmore) [1838-]", "グレンファークラス (Glenfarclas) [2014-]", "バリンダルロッホ (Ballindalloch) [1825-]"],
+      "エルギン": ["グレンエルギン (Glen Elgin) [1817-]", "グレンマレイ (Glen Moray) [1893-]", "グレンロッシー (Glenlossie) [1875-]", "ミルトンダフ (Miltonduff) [1840-]", "リンクウッド (Linkwood) [1974-]"],
+      "フォレス": ["グレンバーギー (Glenburgie) [1960-]", "ダラスドゥー (Dallas Dhu) [1949-]", "ベンロマック (Benromach) [1897-]"],
+      "バリンダロッホ / グレンリベット": ["グレンリベット (The Glenlivet) [不明-]"],
+      "ロングモーン / エルギン": ["コールバーン (Coleburn) [1797-]", "トーモア (Tormore) [1964-]"],
+      "トムナヴーリン": ["タムナヴーリン (Tamnavulin) [1897-]"],
+      "トミントール": ["トミントール (Tomintoul) [1775-]"],
+      "クロムデール": ["バルミニック (Balmenach) [1794-]"],
+      "チャペルタウン・オブ・グレンリベット": ["ブレイヴァル (Braeval) [1958-]"],
+      "エルギン周辺": ["ベンリアック (Benriach) [1897-]", "マノックモア (Mannochmore) [1878-]"],
+      "クライゲラキ / イースター・エルキーズ": ["マッカラン (The Macallan) [1879-]"],
+      "エルギン / バーグヘッド": ["ローズアイル (Roseisle) [1898-]"],
+      "ロングモーン": ["ロングモーン (Longmorn) [1898-]"],
+      "バッキー": ["インチガワー (Inchgower) [1829-]"]
+    },
+    "ハイランド": {
+      "東ハイランド": ["アービッキー (Arbikie) [1824-]", "アードモア (Ardmore) [2014-]", "ブリュードッグ (BrewDog) [1836-]", "ディーサイド (Deeside) [1869-]", "フェッターケアン (Fettercairn) [1871-]", "グレンカダム (Glencadam) [1898-]", "グレンドロナック (GlenDronach) [1897-]", "グレンギリー (Glen Garioch) [1824-]", "グレングラッサ (Glenglassaugh) [1966-]", "ノックドゥー (Knockdhu / An Cnoc) [1964-]", "マクダフ (Macduff) [1973-]", "ロイヤルロッホナガー (Royal Lochnagar) [1823-]"],
+      "西ハイランド": ["アードナムルッカン (Ardnamurchan) [1974-]", "ベンネヴィス (Ben Nevis) [1892-]", "ノックニーアン (Ncn'ean) [1895-]", "オーバン (Oban) [1893-]"],
+      "南ハイランド": ["グレンゴイン (Aberfeldy) [1886-]", "ロッホローモンド (Blair Athol) [1990-]"],
+      "中央ハイランド": ["アバフェルディ (Deanston) [1824-]", "ブレアアソール (Edradour) [1824-]", "ディーンストン (Glengoyne) [1891-]", "エドラダワー (Glenturret) [2014-]", "グレンタレット (Loch Lomond) [1897-]", "ストラスアーン (Strathearn) [1891-]", "タリバーディン (Tullibardine) [1786-]", "ダルウィニー (Dalwhinnie) [1897-]", "スペイサイド蒸留所 (Wolfburn) [1967-]", "トマーティン (Brora) [1879-]"],
+      "北ハイランド": ["アードロス (Ardross) [1957-]", "バルブレア (Balblair) [1895-]", "クライヌリッシュ (Clynelish) [1975-]", "ダルモア (The Dalmore) [1971-]", "ドーノッホ (Dornoch) [1898-]", "グレンモーレンジ (Glenmorangie) [2009-]", "グレンオード (Glen Ord) [1821-]", "グレンウィヴィス (Glen Wyvis) [1824-]", "ロッホユー (Loch Ewe) [1876-]", "プルトニー (Old Pulteney) [1897-]", "ロイヤルブラックラ (Royal Brackla) [1898-]", "ティーニニック (Speyside Distillery) [1826-]", "ウルフバーン (Teaninich) [1852-]", "ブローラ (Tomatin) [1897-]"]
+    },
+    "アイランズ": {
+      "ルイス島": ["アビンジャラク (Abhainn Dearg) [1817-]"],
+      "オークニー本島": ["ハイランドパーク (Highland Park) [2017-]", "スキャパ (Scapa) [2005-]"],
+      "バラ島": ["アイル・オブ・バラ (Isle of Barra) [不明-]"],
+      "ハリス島": ["アイル・オブ・ハリス (Isle of Harris) [1830-]"],
+      "ジュラ島": ["ジュラ (Isle of Jura) [2007-]"],
+      "ラッセイ島": ["アイル・オブ・ラッセイ (Isle of Raasay) [不明-]"],
+      "アラン島": ["ラグ (Lagg) [1840-]", "アラン（ロックランザ） (Lochranza / Arran) [2017-]"],
+      "アンスト島": ["サクサヴォード (Sax Vord) [不明-]"],
+      "スカイ島": ["タリスカー (Talisker) [2014-]", "トラベイグ (Torabhaig) [2015-]"],
+      "マル島": ["トバモリー (Tobermory) [2012-]", "レダイグ (Ledaig) [2015-]"]
+    },
+    "アイラ": {
+      "中部・北部": ["アードナホー (Ardnahoe) [2017-]", "カリラ (Caol Ila) [2019-]", "ブナハーブン (Bunnahabhain) [1837-]", "ボウモア (Bowmore) [1832-]", "モルトミル (Malt Mill) [1824-]"],
+      "南部": ["アードベッグ (Ardbeg) [1823-]", "ポートエレン (Port Ellen) [2004-]", "ラガヴーリン (Lagavulin) [1815-]", "ラフロイグ (Laphroaig) [1816-]"],
+      "西部": ["キルホーマン (Kilchoman) [不明-]", "ブルイックラディ (Bruichladdich) [1828-]", "ロッホインダール (Lochindaal) [1815-]"]
+    },
+    "キャンベルタウン": {
+      "-": ["グレンガイル (Glengyle) [1908-]", "グレンスコシア (Glen Scotia) [1779-]", "スプリングバンク (Springbank) [1881-]"]
+    },
+    "ローランド": {
+      "内陸東部寄り": ["アベラルギー (Aberargie) [1846-]"],
+      "南西海岸寄り": ["アイルサベイ (Ailsa Bay) [2018-]"],
+      "南部": ["アナンデール (Annandale) [不明-]", "ブラッドノック (Bladnoch) [2005-]", "ザ・ボーダーズ (The Borders) [2008-]", "クラフティ (Crafty) [1798-]"],
+      "グラスゴー周辺": ["オーヘントッシャン (Auchentoshan) [1881-]", "クライドサイド (Clydeside) [1798-]", "グラスゴー (Glasgow) [2017-]"],
+      "エディンバラ周辺": ["チェーンピア (Chain Pier) [2017-]", "グレンキンチー (Glenkinchie) [1830-]", "ホールリード (Holyrood) [1810-]"],
+      "ファイフ": ["ダフトミル (Daftmill) [2015-]", "エデンミル (Eden Mill) [不明-]", "インチデアニー (InchDairnie) [1798-]", "キングスバーンズ (Kingsbarns) [1885-]", "リーブン (Leven) [不明-]", "リンドーズアビー (Lindores Abbey) [2019-]"],
+      "フォルカーク周辺": ["ローズバンク (Rosebank) [1995-]"]
+    }
+  },
+  "IRISH": {
+    "ダブリン": {
+      "-": ["ティーリング (Teeling Distillery) [1825〜1975-]", "ダブリン・リバティーズ (Dublin Liberties Distillery) [2018-]", "ロー&コー (Roe & Co Distillery) [2019-]", "ピアース・ライオンズ (Pearse Lyons Distillery) [2019-]", "ジェムソン（旧） (Old Jameson Distillery (Bow St.)) [2013-]", "パワーズ（旧） (John's Lane Distillery (Powers)) [2003-]", "ジョン・ローク（ダブリン） (Dublin Whiskey Distilleries (historic)) [2021-]"]
+    },
+    "カウンティ・ミース": {
+      "-": ["ボアン (Boann Distillery) [2019-]"]
+    },
+    "コーク州": {
+      "-": ["ミドルトン（新） (New Midleton Distillery) [2016-]", "ウェストコーク (West Cork Distillers) [2020-]", "クロナキルティ (Clonakilty Distillery) [2012-]", "ブラックホッグ (Black Hog Distillery) [2014-]", "旧ミドルトン (Old Midleton Distillery) [2016-]"]
+    },
+    "オファリー州・タラモア": {
+      "-": ["タラモア (Tullamore D.E.W. Distillery) [2015-]"]
+    },
+    "ウェストミース州": {
+      "-": ["キルベガン (Kilbeggan Distillery) [1975-]", "ジョン・ロッケ（キルベガン旧） (Kilbeggan (Locke's) Old Distillery) [2020-]"]
+    },
+    "ラウス州": {
+      "-": ["クーリー (Cooley Distillery) [2023-]", "グレートノーザン (Great Northern Distillery) [2016-]"]
+    },
+    "ミース州・スレーン城": {
+      "-": ["スレーン (Slane Distillery) [2016-]"]
+    },
+    "ケリー州": {
+      "-": ["ディングル (Dingle Distillery) [2019-]", "キラーニー (Killarney Distillery) [19世紀-]"]
+    },
+    "ウォーターフォード州": {
+      "-": ["ウォーターフォード (Waterford Distillery) [2015-]", "ブラックウォーター (Blackwater Distillery) [2015-]"]
+    },
+    "カーロウ州": {
+      "-": ["ロイヤルオーク (Royal Oak Distillery) [1784-]"]
+    },
+    "ティペラリー州": {
+      "-": ["ティペラリー (Tipperary Distillery) [2020-]"]
+    },
+    "メイヨー州": {
+      "-": ["コナハト (Connacht Distillery) [2017-]", "ローラウン (Royal Oak / Lough Mask) [1808〜1935-]", "アキル・アイランド (Achill Island Distillery) [1780〜1971-]"]
+    },
+    "スライゴー州": {
+      "-": ["ロフ・ギル (Lough Gill Distillery) [2018-]"]
+    },
+    "ロスコモン州": {
+      "-": ["ロフ・レー (Lough Ree Distillery) [1791〜1976-]", "シェッド (The Shed Distillery) [2018-]"]
+    },
+    "キルケニー州": {
+      "-": ["バリーキーフ (Ballykeefe Distillery) [2019-]"]
+    },
+    "ウィックロウ州": {
+      "-": ["バワーズコート (Powerscourt Distillery) [2016-]"]
+    },
+    "クレア州": {
+      "-": ["バーレン (Burren Distillery) [2014-]"]
+    },
+    "ゴールウェイ州": {
+      "-": ["マイケル (Micil Distillery) [2018-]", "アハスクラー (Ahascragh Distillery) [2023-]"]
+    },
+    "ドニゴール州": {
+      "-": ["アルダラ (Ardara Distillery) [2017-]", "クロリー (Crolly Distillery) [1757〜1957-]"]
+    },
+    "モナハン州": {
+      "-": ["オールドキャリックミル (Old Carrick Mill Distillery) [2014-]"]
+    },
+    "アントリム州・ブッシュミルズ": {
+      "-": ["ブッシュミルズ (Old Bushmills Distillery) [2019-]"]
+    },
+    "アントリム州": {
+      "-": ["コーズウェイ（ブッシュミルズ） (Causeway Distillery (Bushmills)) [2023-]", "グレンズ・オブ・アントリム (Glens of Antrim Distillery) [2014-]"]
+    },
+    "ダウン州": {
+      "-": ["エクリンヴィル (Echlinville Distillery) [2020-]", "ヒンチ (Hinch Distillery) [2019-]", "レイデモンエステート (Rademon Estate Distillery) [2022-]", "コープランド (Copeland Distillery) [2015-]", "キルオーウェン (Killowen Distillery) [2019-]"]
+    },
+    "ベルファスト": {
+      "-": ["マクコネルズ（J&J） (J&J McConnell's Distillery) [1987-]", "タイタニック (Titanic Distillers) [2007-]", "ダンヴィル (Dunville's Royal Irish Distillery) [2021-]"]
+    },
+    "ファーマナ州": {
+      "-": ["ボートヤード (Boatyard Distillery) [2020-]"]
+    }
+  },
+  "USA": {
+    "ケンタッキー": {
+      "フランクフォート": ["バッファロー・トレース・ディスティラリー (Buffalo Trace Distillery) [1953-]", "キャッスル＆キー・ディスティラリー (Castle & Key Distillery) [1934-]"],
+      "ルイビル": ["ヘヴン・ヒル・ディスティラリー（バーンハイム） (Heaven Hill Distillery (Bernheim)) [1869-]", "オールド・フォレスター・ディスティリング (Old Forester Distilling Co.) [2011-]", "ミクターズ・ディスティラリー（フォート・ネルソン） (Michter's Distillery (Fort Nelson)) [2004-]", "ラビット・ホール・ディスティラリー (Rabbit Hole Distillery) [2007-]", "エンジェルズ・エンヴィ・ディスティラリー (Angel's Envy Distillery) [2010-]", "ケンタッキー・ピアレス・ディスティリング (Kentucky Peerless Distilling Co.) [2012-]"],
+      "クラーモント": ["ジム・ビーム・ディスティラリー (Jim Beam Distillery) [1888-]"],
+      "ボストン": ["ブッカー・ノー・ディスティラリー（ビーム） (Booker Noe Distillery (Beam)) [1847-]"],
+      "ロレット": ["メーカーズ・マーク・ディスティラリー (Maker's Mark Distillery) [2012-]"],
+      "ローレンスバーグ": ["ワイルド・ターキー・ディスティラリー (Wild Turkey Distillery) [2019-]", "フォア・ローゼズ・ディスティラリー (Four Roses Distillery) [1935-]"],
+      "バーズタウン近郊バーサイユ": ["ウッドフォード・リザーブ・ディスティラリー (Woodford Reserve Distillery) [2015-]"],
+      "シヴリー（ルイビル近郊）": ["ブラウン＝フォーマン・ディスティラリー (Brown-Forman Distillery) [2018-]"],
+      "バーズタウン": ["バートン1792ディスティラリー (Barton 1792 Distillery) [2021-]", "ウィレット・ディスティラリー (Willett Distillery) [1954-]", "バーズタウン・バーボン・カンパニー (Bardstown Bourbon Company) [2011-]", "ラックス・ロウ・ディスティラーズ (Lux Row Distillers) [1787-]"],
+      "シェルビービル": ["ブレット・ディスティラリー（スティッツェル＝ウェラー） (Bulleit Distillery (Stitzel-Weller)) [1875-]"],
+      "ニューポート": ["ニュー・リフ・ディスティラリー (New Riff Distillery) [2012-]"],
+      "ダンビル": ["ウィルダネス・トレイル・ディスティラリー (Wilderness Trail Distillery) [2011-]"],
+      "オーエンズボロ": ["グリーン・リバー・ディスティリング (Green River Distilling Co.) [2018-]"]
+    },
+    "テネシー": {
+      "リンチバーグ": ["ジャック・ダニエル・ディスティラリー (Jack Daniel Distillery) [2014-]"],
+      "タラホーマ": ["ジョージ・ディッケル・ディスティラリー (George Dickel Distillery) [2012-]"],
+      "シェルビービル": ["ニアレスト・グリーン・ディスティラリー (Nearest Green Distillery) [1812-]"],
+      "ナッシュビル": ["ネルソンズ・グリーン・ブライアー・ディスティラリー (Nelson's Green Brier Distillery) [2018-]", "コルセア・ディスティラリー (Corsair Distillery) [2016-]"],
+      "チャタヌーガ": ["チャタヌーガ・ウイスキー (Chattanooga Whiskey) [1879-]"],
+      "リンチバーグ/ナッシュビル": ["カンパニー・ディスティリング (Company Distilling) [1935-]"]
+    },
+    "インディアナ": {
+      "ローレンスバーグ": ["MGPイングリーディエンツ（ロス＆スクイブ） (MGP Ingredients (Ross & Squib)) [2006-]"],
+      "ボーデン": ["スターライト・ディスティラリー (Starlight Distillery) [2010-]"]
+    },
+    "ペンシルベニア": {
+      "ブリストル": ["ダッズ・ハット・ペンシルベニア・ライ (Dad's Hat Pennsylvania Rye) [2014-]"],
+      "ピッツバーグ": ["ウィグル・ウイスキー (Wigle Whiskey) [2014-]"]
+    },
+    "ニューヨーク": {
+      "ニューヨーク（ブルックリン）": ["キングス・カウンティ・ディスティラリー (Kings County Distillery) [2010-]"],
+      "ブルックリン": ["ニューヨーク・ディスティリング・カンパニー (New York Distilling Company) [2008-]"],
+      "ガーディナー": ["タトルタウン・スピリッツ (Tuthilltown Spirits) [2004-]"],
+      "ベナルド": ["フィンガー・レイクス・ディスティリング (Finger Lakes Distilling) [2011-]"]
+    },
+    "テキサス": {
+      "ウェーコ": ["バルコネス・ディスティラリー (Balcones Distillery) [2015-]"],
+      "ヘイズビル": ["ギャリソン・ブラザーズ・ディスティラリー (Garrison Brothers Distillery) [2012-]"],
+      "オースティン": ["スティル・オースティン・ウイスキー (Still Austin Whiskey Co.) [1958-]"]
+    },
+    "コロラド": {
+      "デンバー": ["ストラナハンズ・ディスティラリー (Stranahan's Distillery) [2005-]", "レオポルド・ブロス (Leopold Bros.) [2000-]"]
+    },
+    "ワシントン": {
+      "シアトル": ["ウェストランド・ディスティラリー (Westland Distillery) [2010-]"],
+      "ポートランド（OR）": ["ウェストワード・ウイスキー (Westward Whiskey) [2017-]", "ブル・ラン・ディスティリング (Bull Run Distilling Co.) [2019-]"]
+    },
+    "ユタ": {
+      "パークシティ": ["ハイ・ウェスト・ディスティラリー (High West Distillery) [1870-]"]
+    },
+    "ワイオミング": {
+      "カービー": ["ワイオミング・ウイスキー (Wyoming Whiskey) [2010-]"]
+    },
+    "ネバダ": {
+      "ファロン": ["フレイ・ランチ・ディスティラリー (Frey Ranch Distillery) [1795-]"]
+    },
+    "アリゾナ": {
+      "ツーソン": ["ウイスキー・デル・バック (Whiskey Del Bac) [2009-]"]
+    },
+    "カリフォルニア": {
+      "アラメダ": ["セント・ジョージ・スピリッツ (St. George Spirits) [2003-]"]
+    },
+    "イリノイ": {
+      "エヴァンストン": ["FEWスピリッツ (FEW Spirits) [2015-]"]
+    },
+    "アイオワ": {
+      "スワイシャー": ["シーダー・リッジ・ディスティラリー (Cedar Ridge Distillery) [1885-]"]
+    },
+    "バーモント": {
+      "ショーアハム": ["ホイッスルピッグ・ファーム (WhistlePig Farm) [2011-]"]
+    },
+    "バージニア": {
+      "フレデリクスバーグ": ["A.スミス・ボウマン・ディスティラリー (A. Smith Bowman Distillery) [2008-]"],
+      "スぺリービル": ["コッパー・フォックス・ディスティラリー (Copper Fox Distillery) [1982-]"]
+    }
+  },
+  "Canadian": {
+    "西カナダ": {
+      "アルバータ州": ["アルバータ蒸留所 (Alberta Distillers) [2015-]", "ブラックベルベット蒸留所 (Black Velvet Distillery) [1968-]", "ハイウッド蒸留所 (Highwood Distillery) [2009-]", "ノースオブ7蒸留所 (North of 7 Distillery) [2004-]"],
+      "ブリティッシュコロンビア州": ["シェルターポイント蒸留所 (Shelter Point Distillery) [1990-]", "オカナガンスピリッツ (Okanagan Spirits Craft Distillery) [1945-]"],
+      "ユーコン準州": ["トゥーブリュワーズ蒸留所 (Two Brewers Distillery) [2016-]"]
+    },
+    "中央カナダ": {
+      "マニトバ州": ["ギムリ蒸留所 (Gimli Distillery) [2015-]"],
+      "オンタリオ州": ["ハイラムウォーカー蒸留所 (Hiram Walker Distillery) [1945-]", "フォーティークリーク蒸留所 (Forty Creek Distillery) [2016-]", "カナディアンミスト蒸留所 (Canadian Mist Distillery) [1992-]", "スティルウォーターズ蒸留所 (Still Waters Distillery) [1858-]", "ユーノーハースト蒸留所 (Yongehurst Distillery) [2009-]", "グッダーハム＆ワーツ蒸留所（閉鎖） (Gooderham & Worts Distillery (closed)) [1857-]", "シーグラム ウォータールー蒸留所（閉鎖） (Seagram's Waterloo Distillery (closed)) [1832-]"],
+      "ケベック州": ["ヴァレーフィールド蒸留所 (Valleyfield Distillery) [1967-]", "サーカ蒸留所 (Cirka Distilleries) [1946-]", "ディスティルリ・デュ・セントローラン (Distillerie du St. Laurent) [1974-]", "ラサール蒸留所（閉鎖） (LaSalle Distillery (closed)) [2014-]"]
+    },
+    "東カナダ": {
+      "ノバスコシア州": ["グレノラ蒸留所 (Glenora Distillers)"]
+    }
+  }
+}

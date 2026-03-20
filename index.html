@@ -1375,39 +1375,49 @@
     bindPreviewInputs();
     updateJsonPreview();
 
-// ===== 蒸留所データ連動エンジン（最新 data.json 対応版） =====
+// ===== 蒸留所データ連動エンジン（whisky_data.json 対応版） =====
     let whiskeyData = {};
-    let distLookup = {};
+    let distLookup = {};    // 表示名 → { c, r, s } の逆引きマップ
+    let rawToDisplay = {};  // 生データ名 → 表示名 の変換マップ
 
     const distInput = document.getElementById('distillery-input');
     const subRegInput = document.getElementById('subregion-input');
     const regInput = document.getElementById('region-input');
     const countryInput = document.getElementById('country-input');
 
-    // data.json を読み込み、datalist と逆引きデータを構築
-    fetch('data.json')
+    // 蒸留所の生データ名から表示用の名前を抽出する
+    // 例: "サントリー知多蒸留所 (Suntory Chita Distillery) [2022年-]"
+    //   → "サントリー知多蒸留所 (Suntory Chita Distillery)"
+    function distDisplayName(raw) {
+      return raw.replace(/\s*\[.*?\]\s*$/, '').trim();
+    }
+
+    // whisky_data.json を読み込み、datalist と逆引きデータを構築
+    fetch('whisky_data.json')
       .then(r => r.json())
       .then(data => {
         whiskeyData = data;
 
         // 【逆引き用マップ作成】
-        // data.json の構造：国(c) -> 地方(r) -> 県/地区(s) -> 蒸留所リスト(d)
+        // whisky_data.json の構造：国(c) -> 地方(r) -> 県/地区(s) -> 蒸留所リスト(d)
+        // 蒸留所名は "[年号-]" 付きなので、表示名に変換してマッピング
         Object.keys(data).forEach(c => {
           Object.keys(data[c]).forEach(r => {
             Object.keys(data[c][r]).forEach(s => {
-              data[c][r][s].forEach(d => {
-                // 蒸留所名をキーにして、所属する国・地方・地区を保存
-                distLookup[d] = { c, r, s };
+              data[c][r][s].forEach(rawName => {
+                const displayName = distDisplayName(rawName);
+                distLookup[displayName] = { c, r, s };
+                rawToDisplay[rawName] = displayName;
               });
             });
           });
         });
 
         updateLocationLists();
-        console.log("Whiskey data loaded successfully.");
+        console.log("Whisky data loaded successfully. 蒸留所数:", Object.keys(distLookup).length);
       })
       .catch(err => {
-        console.error('data.json の読み込みに失敗しました。ファイルが index.html と同じ階層にあるか確認してください:', err);
+        console.error('whisky_data.json の読み込みに失敗しました。ファイルが index.html と同じ階層にあるか確認してください:', err);
       });
 
     // 候補リスト（datalist）を現在の入力状況に合わせて絞り込む
@@ -1427,7 +1437,10 @@
               Object.keys(whiskeyData[country][region]).forEach(sub => {
                 if (sub !== '-') subRegions.push(sub);
                 if (!s || s === sub) {
-                  distilleries.push(...whiskeyData[country][region][sub]);
+                  // 生データ名を表示名に変換して候補に追加
+                  whiskeyData[country][region][sub].forEach(rawName => {
+                    distilleries.push(distDisplayName(rawName));
+                  });
                 }
               });
             }
