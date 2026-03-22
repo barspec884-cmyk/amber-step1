@@ -691,7 +691,38 @@
                 <input type="hidden" id="abvHidden" value="46.0">
               </div>
 
-              <!-- 4. 仕様・特徴 -->
+              <!-- 4. 蒸留所（逆引き対応） -->
+              <div class="input-group column">
+                <div><span class="label-main">蒸留所</span><span class="label-sub">Distillery:</span></div>
+                <input type="text" id="distillery-input" list="distilleryList" placeholder="蒸留所を入力（逆引き対応）">
+                <datalist id="distilleryList"></datalist>
+              </div>
+
+              <!-- 5. 原産国 -->
+              <div class="input-group column">
+                <div><span class="label-main">原産国</span><span class="label-sub">Country:</span></div>
+                <input type="text" id="country-input" list="countryList" placeholder="すべての国から探す">
+                <datalist id="countryList"></datalist>
+              </div>
+
+              <!-- 6. エリア（大地域） -->
+              <div class="input-group column">
+                <div><span class="label-main">エリア</span><span class="label-sub">Region:</span></div>
+                <input type="text" id="region-input" list="regionList" placeholder="大地域を選択、または自由入力">
+                <datalist id="regionList"></datalist>
+              </div>
+
+              <!-- 7. Sub-Region（小地域） -->
+              <div class="input-group column">
+                <div><span class="label-main">小地域</span><span class="label-sub">Sub-Region:</span></div>
+                <input type="text" id="subregion-input" list="subRegionList" placeholder="小地域を選択、または自由入力">
+                <datalist id="subRegionList"></datalist>
+              </div>
+
+              <!-- 8. オーナー -->
+              <div class="input-group column"><div><span class="label-main">オーナー</span><span class="label-sub">Owner:</span></div><input type="text" id="owner-input" list="ownerList" placeholder="オーナーを選択、または自由入力"><datalist id="ownerList"></datalist></div>
+
+              <!-- 9. 仕様・特徴 -->
               <div class="input-group column">
                 <div><span class="label-main">仕様・特徴</span><span class="label-sub">Specs:</span></div>
                 <div class="value-box" id="selectedChips"><span class="placeholder">まだ未入力です。</span></div>
@@ -699,40 +730,33 @@
                 <input type="hidden" id="specCodesHidden" value="">
                 <input type="hidden" id="specOtherHidden" value="">
               </div>
+            </div>
 
-              <!-- 5. 種別 -->
-              <div class="input-group column"><div><span class="label-main">種別</span><span class="label-sub">Category:</span></div><input type="text" id="category-input" placeholder="例: Single Malt"></div>
+            <!-- コンテキスト（天気・体調・場所・飲み方） -->
+            <div class="input-group column">
+              <div><span class="label-main">飲み方</span><span class="label-sub">Serving:</span></div>
+              <div class="value-box" id="servingChips"><span class="placeholder">未選択</span></div>
+              <button class="btn-open-modal" id="openServingModal" type="button">＋ 飲み方を選ぶ</button>
+              <input type="hidden" id="servingHidden" value="">
+            </div>
 
-              <!-- 6. 原産国 -->
-              <div class="input-group column">
-                <div><span class="label-main">原産国</span><span class="label-sub">Country:</span></div>
-                <input type="text" id="country-input" list="countryList" placeholder="すべての国から探す">
-                <datalist id="countryList"></datalist>
-              </div>
+            <div class="input-group column">
+              <div><span class="label-main">体調</span><span class="label-sub">Condition:</span></div>
+              <div class="value-box" id="conditionChips"><span class="placeholder">未選択</span></div>
+              <button class="btn-open-modal" id="openConditionModal" type="button">＋ 体調を選ぶ</button>
+              <input type="hidden" id="conditionHidden" value="">
+            </div>
 
-              <!-- 7. エリア（大地域） -->
-              <div class="input-group column">
-                <div><span class="label-main">エリア</span><span class="label-sub">Region:</span></div>
-                <input type="text" id="region-input" list="regionList" placeholder="大地域を選択、または自由入力">
-                <datalist id="regionList"></datalist>
-              </div>
+            <div class="input-group column">
+              <div><span class="label-main">天気</span><span class="label-sub">Weather:</span></div>
+              <div class="value-box" id="weatherChips"><span class="placeholder">未選択</span></div>
+              <button class="btn-open-modal" id="openWeatherModal" type="button">＋ 天気を選ぶ</button>
+              <input type="hidden" id="weatherHidden" value="">
+            </div>
 
-              <!-- 8. Sub-Region（小地域） -->
-              <div class="input-group column">
-                <div><span class="label-main">小地域</span><span class="label-sub">Sub-Region:</span></div>
-                <input type="text" id="subregion-input" list="subRegionList" placeholder="小地域を選択、または自由入力">
-                <datalist id="subRegionList"></datalist>
-              </div>
-
-              <!-- 9. 蒸留所（逆引き対応） -->
-              <div class="input-group column">
-                <div><span class="label-main">蒸留所</span><span class="label-sub">Distillery:</span></div>
-                <input type="text" id="distillery-input" list="distilleryList" placeholder="蒸留所を入力（逆引き対応）">
-                <datalist id="distilleryList"></datalist>
-              </div>
-
-              <!-- 10. オーナー -->
-              <div class="input-group column"><div><span class="label-main">オーナー</span><span class="label-sub">Owner:</span></div><input type="text" id="owner-input" list="ownerList" placeholder="オーナーを選択、または自由入力"><datalist id="ownerList"></datalist></div>
+            <div class="input-group column">
+              <div><span class="label-main">場所</span><span class="label-sub">Location:</span></div>
+              <input type="text" id="location-input" placeholder="例: 自宅 / Bar ABC / 友人宅">
             </div>
 
             <div class="input-group column">
@@ -794,20 +818,20 @@
         </div>
       </div>
 
-      <div class="section open" id="sec-base">
+      <div class="section open" id="sec-malt">
+        <div class="section-header" data-section-toggle="sec-malt">
+          <div class="section-left"><span class="section-arrow">▶</span><h3>種別・タイプ</h3></div>
+          <span class="section-count" id="count-malt"></span>
+        </div>
+        <div class="section-body"><div class="option-grid" id="maltTypeOptions"></div></div>
+      </div>
+
+      <div class="section" id="sec-base">
         <div class="section-header" data-section-toggle="sec-base">
           <div class="section-left"><span class="section-arrow">▶</span><h3>製法・基本仕様</h3></div>
           <span class="section-count" id="count-base"></span>
         </div>
         <div class="section-body"><div class="option-grid" id="baseOptions"></div></div>
-      </div>
-
-      <div class="section" id="sec-malt">
-        <div class="section-header" data-section-toggle="sec-malt">
-          <div class="section-left"><span class="section-arrow">▶</span><h3>モルトタイプ</h3></div>
-          <span class="section-count" id="count-malt"></span>
-        </div>
-        <div class="section-body"><div class="option-grid" id="maltTypeOptions"></div></div>
       </div>
 
       <div class="section" id="sec-style">
@@ -842,6 +866,54 @@
       <div class="modal-actions">
         <button class="btn ghost" id="resetBtn" type="button">入力をクリア</button>
         <button class="btn primary" id="applyBtn" type="button">この内容で適用</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 飲み方モーダル -->
+  <div class="modal-backdrop" id="servingBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="grabber"></div>
+      <div class="modal-head">
+        <div class="modal-title">飲み方を選ぶ</div>
+        <button class="icon-btn" id="closeServingModal" aria-label="閉じる" type="button">×</button>
+      </div>
+      <div class="option-grid" id="servingOptions"></div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="clearServing" type="button">クリア</button>
+        <button class="btn primary" id="applyServing" type="button">この内容で適用</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 体調モーダル -->
+  <div class="modal-backdrop" id="conditionBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="grabber"></div>
+      <div class="modal-head">
+        <div class="modal-title">体調を選ぶ</div>
+        <button class="icon-btn" id="closeConditionModal" aria-label="閉じる" type="button">×</button>
+      </div>
+      <div class="option-grid" id="conditionOptions"></div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="clearCondition" type="button">クリア</button>
+        <button class="btn primary" id="applyCondition" type="button">この内容で適用</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 天気モーダル -->
+  <div class="modal-backdrop" id="weatherBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="grabber"></div>
+      <div class="modal-head">
+        <div class="modal-title">天気を選ぶ</div>
+        <button class="icon-btn" id="closeWeatherModal" aria-label="閉じる" type="button">×</button>
+      </div>
+      <div class="option-grid" id="weatherOptions"></div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="clearWeather" type="button">クリア</button>
+        <button class="btn primary" id="applyWeather" type="button">この内容で適用</button>
       </div>
     </div>
   </div>
@@ -1052,22 +1124,27 @@
         { code: 'barrel_select', label: 'バレルセレクト', sub: 'Barrel Select' }
       ],
       malt_type: [
-        { code: 'single_malt', label: 'シングルモルト', sub: 'Single Malt', mutuallyExclusive: 'malttype' },
-        { code: 'blended_malt', label: 'ブレンデッドモルト', sub: 'Blended Malt', mutuallyExclusive: 'malttype' },
-        { code: 'single_grain', label: 'シングルグレーン', sub: 'Single Grain', mutuallyExclusive: 'malttype' },
-        { code: 'grain', label: 'グレーン', sub: 'Grain Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'blended', label: 'ブレンデッド', sub: 'Blended Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'pot_still', label: 'ピュアポットスチル', sub: 'Pure Pot Still', mutuallyExclusive: 'malttype' },
-        { code: 'bourbon', label: 'バーボン', sub: 'Bourbon', mutuallyExclusive: 'malttype' },
-        { code: 'rye', label: 'ライ', sub: 'Rye Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'wheat', label: 'ウィート', sub: 'Wheat Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'corn', label: 'コーン', sub: 'Corn Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'tennessee', label: 'テネシー', sub: 'Tennessee Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'canadian', label: 'カナディアン', sub: 'Canadian Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'japanese', label: 'ジャパニーズ', sub: 'Japanese Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'irish', label: 'アイリッシュ', sub: 'Irish Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'scotch', label: 'スコッチ', sub: 'Scotch Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'world', label: 'ワールド', sub: 'World Whisky', mutuallyExclusive: 'malttype' }
+        { code: 'single_malt', label: 'シングルモルト', sub: 'Single Malt', mutuallyExclusive: 'malttype', countries: ['Japan','Scotland','Ireland','Canada','_default'] },
+        { code: 'blended_malt', label: 'ブレンデッドモルト', sub: 'Blended Malt', mutuallyExclusive: 'malttype', countries: ['Japan','Scotland','_default'] },
+        { code: 'blended', label: 'ブレンデッド', sub: 'Blended Whisky', mutuallyExclusive: 'malttype', countries: ['Japan','_default'] },
+        { code: 'single_grain', label: 'シングルグレーン', sub: 'Single Grain', mutuallyExclusive: 'malttype', countries: ['Japan','Scotland','Ireland','_default'] },
+        { code: 'blended_grain', label: 'ブレンデッドグレーン', sub: 'Blended Grain', mutuallyExclusive: 'malttype', countries: ['Japan','Scotland','_default'] },
+        { code: 'world_blended', label: 'ワールドブレンデッド', sub: 'World Blended', mutuallyExclusive: 'malttype', countries: ['Japan'] },
+        { code: 'new_make_type', label: 'ニューメイク / ニューポット', sub: 'New Make / New Pot', mutuallyExclusive: 'malttype', countries: ['Japan'] },
+        { code: 'blended_scotch', label: 'ブレンデッドスコッチ', sub: 'Blended Scotch', mutuallyExclusive: 'malttype', countries: ['Scotland'] },
+        { code: 'single_pot_still', label: 'シングルポットスチル', sub: 'Single Pot Still', mutuallyExclusive: 'malttype', countries: ['Ireland'] },
+        { code: 'blended_irish', label: 'ブレンデッドアイリッシュ', sub: 'Blended Irish', mutuallyExclusive: 'malttype', countries: ['Ireland'] },
+        { code: 'poitin', label: 'ポチーン', sub: 'Poitín', mutuallyExclusive: 'malttype', countries: ['Ireland'] },
+        { code: 'bourbon', label: 'バーボン', sub: 'Bourbon', mutuallyExclusive: 'malttype', countries: ['United States'] },
+        { code: 'rye', label: 'ライ', sub: 'Rye Whiskey', mutuallyExclusive: 'malttype', countries: ['United States'] },
+        { code: 'tennessee', label: 'テネシー', sub: 'Tennessee Whiskey', mutuallyExclusive: 'malttype', countries: ['United States'] },
+        { code: 'corn', label: 'コーン', sub: 'Corn Whiskey', mutuallyExclusive: 'malttype', countries: ['United States'] },
+        { code: 'wheat', label: 'ウィート', sub: 'Wheat Whiskey', mutuallyExclusive: 'malttype', countries: ['United States'] },
+        { code: 'american_single_malt', label: 'アメリカンシングルモルト', sub: 'American Single Malt', mutuallyExclusive: 'malttype', countries: ['United States'] },
+        { code: 'blended_american', label: 'ブレンデッドアメリカン', sub: 'Blended American', mutuallyExclusive: 'malttype', countries: ['United States'] },
+        { code: 'canadian_whisky', label: 'カナディアンウイスキー', sub: 'Canadian Whisky', mutuallyExclusive: 'malttype', countries: ['Canada'] },
+        { code: 'canadian_rye', label: 'カナディアンライ', sub: 'Canadian Rye', mutuallyExclusive: 'malttype', countries: ['Canada'] },
+        { code: 'blended_canadian', label: 'ブレンデッドカナディアン', sub: 'Blended Canadian', mutuallyExclusive: 'malttype', countries: ['Canada'] }
       ],
       style: [
         { code: 'peated', label: 'ピーテッド', sub: 'Peated', mutuallyExclusive: 'peatedness' },
@@ -1199,10 +1276,35 @@
       updateSectionCounts();
     }
 
+    // 国名 → 種別フィルタ用キーのマッピング
+    const countryToKey = {
+      'Japan': 'Japan', '日本': 'Japan',
+      'Scotland': 'Scotland', 'スコットランド': 'Scotland',
+      'Ireland': 'Ireland', 'アイルランド': 'Ireland',
+      'United States': 'United States', 'USA': 'United States', 'アメリカ': 'United States', 'U.S.A.': 'United States',
+      'Canada': 'Canada', 'カナダ': 'Canada'
+    };
+
+    function getCountryKey() {
+      const raw = (document.getElementById('country-input')?.value || '').trim();
+      return countryToKey[raw] || '_default';
+    }
+
+    function getFilteredItems(group) {
+      const items = specGroups[group];
+      if (group !== 'malt_type') return items;
+      const key = getCountryKey();
+      return items.filter(item => {
+        if (!item.countries) return true;
+        return item.countries.includes(key);
+      });
+    }
+
     function renderOptions() {
       Object.entries(specGroups).forEach(([group, items]) => {
+        const filtered = getFilteredItems(group);
         groupMap[group].innerHTML = '';
-        items.forEach(item => {
+        filtered.forEach(item => {
           const btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'option' + (draftSelected.has(item.code) ? ' selected' : '');
@@ -1331,7 +1433,12 @@
         country: readField('country-input'),
         region: readField('region-input'),
         subRegion: readField('subregion-input'),
-        category: readField('category-input'),
+        category: (() => {
+          const key = getCountryKey();
+          const maltItems = specGroups.malt_type.filter(i => i.countries && i.countries.includes(key));
+          const selected = maltItems.find(i => appliedSelected.has(i.code));
+          return selected ? selected.sub : '';
+        })(),
         specs: {
           codes: [...appliedSelected],
           other: appliedOtherText.trim()
@@ -1341,6 +1448,12 @@
           display: readField('ageDisplay'),
           mode: readField('ageModeHidden'),
           years: readField('ageYearsHidden')
+        },
+        context: {
+          serving: readField('servingHidden'),
+          condition: readField('conditionHidden'),
+          weather: readField('weatherHidden'),
+          location: readField('location-input')
         }
       };
       document.getElementById('jsonPreview').textContent = JSON.stringify(data, null, 2);
@@ -1349,7 +1462,7 @@
     function bindPreviewInputs() {
       const ids = [
         'sample-no','datetime-input','blind-toggle','brand-input','distillery-input',
-        'owner-input','country-input','region-input','subregion-input','category-input'
+        'owner-input','country-input','region-input','subregion-input','location-input'
       ];
       ids.forEach(id => {
         const el = document.getElementById(id);
@@ -1363,6 +1476,124 @@
       updateJsonPreview();
       alert('下書き保存用の値をプレビューに反映しました。');
     });
+
+    // ===== コンテキストモーダル（飲み方・体調・天気） =====
+    const contextData = {
+      serving: [
+        { id: 1, label: 'ストレート', sub: 'Neat' },
+        { id: 2, label: 'トワイスアップ', sub: 'Twice Up' },
+        { id: 3, label: 'ロック', sub: 'On the Rocks' },
+        { id: 4, label: 'ハーフロック', sub: 'Half Rock' },
+        { id: 5, label: '水割り', sub: 'Mizuwari' },
+        { id: 6, label: 'ソーダ割り', sub: 'Highball' },
+        { id: 7, label: 'お湯割り', sub: 'Hot Whisky' },
+        { id: 8, label: 'ミスト', sub: 'Whisky Mist' },
+        { id: 9, label: 'フロート', sub: 'Float' },
+        { id: 10, label: 'ハーフソーダ', sub: 'Half Soda' },
+        { id: 11, label: 'トワイスホット', sub: 'Twice Hot' },
+        { id: 12, label: 'カクテル', sub: 'Whisky Cocktail' }
+      ],
+      condition: [
+        { id: 1, label: '😁 絶好調', sub: 'Excellent' },
+        { id: 2, label: '😀 元気', sub: 'Good' },
+        { id: 3, label: '🙂 普通', sub: 'Normal' },
+        { id: 4, label: '😩 少し疲れ気味', sub: 'Tired' },
+        { id: 5, label: '😖 かなり疲れている', sub: 'Exhausted' }
+      ],
+      weather: [
+        { id: 1, label: '☀ 晴れ', sub: 'Sunny' },
+        { id: 2, label: '☁ 曇り', sub: 'Cloudy' },
+        { id: 3, label: '⛅ 晴れ時々曇', sub: 'Partly Cloudy' },
+        { id: 4, label: '🌤 薄曇り', sub: 'Mostly Sunny' },
+        { id: 5, label: '🌦 にわか雨', sub: 'Showers' },
+        { id: 6, label: '🌧 雨', sub: 'Rain' },
+        { id: 7, label: '🌨 雪', sub: 'Snow' },
+        { id: 8, label: '🌩 雷雨', sub: 'Thunderstorm' },
+        { id: 9, label: '🌪 竜巻', sub: 'Tornado' },
+        { id: 10, label: '🌫 霧', sub: 'Fog' },
+        { id: 11, label: '🌀 台風', sub: 'Typhoon' }
+      ]
+    };
+
+    // 各コンテキストの選択状態
+    const contextState = {
+      serving: { applied: null, draft: null },
+      condition: { applied: null, draft: null },
+      weather: { applied: null, draft: null }
+    };
+
+    function initContextModal(type, backdropId, optionsId, chipsId, hiddenId, openBtnId, closeBtnId, clearBtnId, applyBtnId) {
+      const backdropEl = document.getElementById(backdropId);
+      const optionsEl = document.getElementById(optionsId);
+      const chipsEl = document.getElementById(chipsId);
+      const hiddenEl = document.getElementById(hiddenId);
+      const state = contextState[type];
+      const items = contextData[type];
+
+      function renderModalOptions() {
+        optionsEl.innerHTML = '';
+        items.forEach(item => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'option' + (state.draft === item.id ? ' selected' : '');
+          btn.innerHTML = `<span>${item.label}</span><small>${item.sub}</small>`;
+          btn.addEventListener('click', () => {
+            state.draft = (state.draft === item.id) ? null : item.id;
+            renderModalOptions();
+          });
+          optionsEl.appendChild(btn);
+        });
+      }
+
+      function renderChips() {
+        chipsEl.innerHTML = '';
+        if (state.applied === null) {
+          chipsEl.innerHTML = '<span class="placeholder">未選択</span>';
+          hiddenEl.value = '';
+        } else {
+          const item = items.find(i => i.id === state.applied);
+          if (item) {
+            const chip = document.createElement('span');
+            chip.className = 'chip active';
+            chip.textContent = item.label;
+            chipsEl.appendChild(chip);
+            hiddenEl.value = item.sub;
+          }
+        }
+        updateJsonPreview();
+      }
+
+      document.getElementById(openBtnId).addEventListener('click', () => {
+        state.draft = state.applied;
+        backdropEl.classList.add('is-open');
+        renderModalOptions();
+      });
+
+      document.getElementById(closeBtnId).addEventListener('click', () => {
+        backdropEl.classList.remove('is-open');
+      });
+
+      backdropEl.addEventListener('click', (e) => {
+        if (e.target === backdropEl) backdropEl.classList.remove('is-open');
+      });
+
+      document.getElementById(clearBtnId).addEventListener('click', () => {
+        state.draft = null;
+        renderModalOptions();
+      });
+
+      document.getElementById(applyBtnId).addEventListener('click', () => {
+        state.applied = state.draft;
+        backdropEl.classList.remove('is-open');
+        renderChips();
+      });
+
+      renderChips();
+    }
+
+    initContextModal('serving', 'servingBackdrop', 'servingOptions', 'servingChips', 'servingHidden', 'openServingModal', 'closeServingModal', 'clearServing', 'applyServing');
+    initContextModal('condition', 'conditionBackdrop', 'conditionOptions', 'conditionChips', 'conditionHidden', 'openConditionModal', 'closeConditionModal', 'clearCondition', 'applyCondition');
+    initContextModal('weather', 'weatherBackdrop', 'weatherOptions', 'weatherChips', 'weatherHidden', 'openWeatherModal', 'closeWeatherModal', 'clearWeather', 'applyWeather');
 
     setDefaultDateTime();
     updateStepUI();
@@ -1518,14 +1749,24 @@
       }
       updateAllLists();
       updateJsonPreview();
+      // 国が変わったので種別セクションも再描画
+      renderOptions();
     });
 
-    // --- 国を変更 → 下位をクリアして候補絞り込み ---
+    // --- 国を変更 → 下位をクリアして候補絞り込み＋種別再描画 ---
     countryInput.addEventListener('change', () => {
       regInput.value = '';
       subRegInput.value = '';
       distInput.value = '';
       ownerInput.value = '';
+      // 国が変わったら種別の選択をクリア（表示される選択肢が変わるため）
+      specGroups.malt_type.forEach(item => {
+        draftSelected.delete(item.code);
+        appliedSelected.delete(item.code);
+      });
+      renderOptions();
+      renderSelectedChips();
+      renderStickyDraftChips();
       updateAllLists();
       updateJsonPreview();
     });
