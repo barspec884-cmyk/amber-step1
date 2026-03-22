@@ -6,17 +6,19 @@
   <title>Amber Nexus - Step 1</title>
 
   <!-- Firebase SDK -->
+  <script defer src="/__/firebase/12.10.0/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/12.10.0/firebase-performance-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-
-
-
-
-
-
-
-
-
-<style>
+  <style>
     :root {
       --wood-bg: #2a1610;
       --card-bg: #f4ebd8;
@@ -680,7 +682,7 @@
 
               <!-- 3. 度数 -->
               <div class="input-group column">
-                <div><span class="label-main">アルコール度数</span><span class="label-sub">Alcohol by Volume (%):</span></div>
+                <div><span class="label-main">度数</span><span class="label-sub">Strength (%):</span></div>
                 <div class="custom-picker">
                   <select id="abvInt" class="custom-select abv-int"></select>
                   <span class="abv-dot">.</span>
@@ -701,11 +703,11 @@
               </div>
 
               <!-- 5. 種別 -->
-              <div class="input-group column"><div><span class="label-main">種別</span><span class="label-sub">Category:</span></div><input type="text" id="category-input" placeholder="例: Single Malt"></div>
+              <div class="input-group column"><div><span class="label-main">製品分類</span><span class="label-sub">Product Category:</span></div><input type="text" id="category-input" placeholder="例: Single Malt"></div>
 
               <!-- 6. 原産国 -->
               <div class="input-group column">
-                <div><span class="label-main">原産国</span><span class="label-sub">Country:</span></div>
+                <div><span class="label-main">原産分類</span><span class="label-sub">Origin Class:</span></div>
                 <input type="text" id="country-input" list="countryList" placeholder="すべての国から探す">
                 <datalist id="countryList"></datalist>
               </div>
@@ -846,667 +848,159 @@
     </div>
   </div>
 
-  <script>
-    const stepTitles = ["Input Basic", "Color / Nose", "Palate / Finish", "Score / Mood", "Review"];
-    let currentStep = 0;
+<script>
+// ===== 蒸留所データ連動エンジン（whisky_data.json 対応版 / owner対応） =====
+let whiskeyData = {};
+let distLookup = {};    // 表示名 → { c, r, s, owner, startYear, notes, regionEn, prefectureEn }
 
-    function updateStepUI() {
-      const headerTitle = document.getElementById("header-title");
-      const progressFill = document.getElementById("progress-fill");
-      const slideContainer = document.getElementById("slide-container");
+const distInput = document.getElementById('distillery-input');
+const subRegInput = document.getElementById('subregion-input');
+const regInput = document.getElementById('region-input');
+const countryInput = document.getElementById('country-input');
+const ownerInput = document.getElementById('owner-input');
 
-      headerTitle.textContent = stepTitles[currentStep] || "Input Basic";
-      progressFill.style.width = `${((currentStep + 1) / stepTitles.length) * 100}%`;
-      slideContainer.style.transform = `translateX(-${currentStep * 20}%)`;
-    }
+// 蒸留所オブジェクトから表示名を作る
+// 例: {nameJa:"ティーリング", nameEn:"Teeling Distillery"}
+//   → "ティーリング (Teeling Distillery)"
+function distDisplayName(item) {
+  const ja = (item.nameJa || '').trim();
+  const en = (item.nameEn || '').trim();
+  if (ja && en) return `${ja} (${en})`;
+  return ja || en;
+}
 
-    function nextStep() {
-      if (currentStep < stepTitles.length - 1) {
-        currentStep++;
-        updateStepUI();
-      }
-    }
+// whisky_data.json を読み込み、datalist と逆引きデータを構築
+fetch('whisky_data.json')
+  .then(r => r.json())
+  .then(data => {
+    whiskeyData = data;
 
-    function prevStep() {
-      if (currentStep > 0) {
-        currentStep--;
-        updateStepUI();
-      }
-    }
-
-    window.nextStep = nextStep;
-    window.prevStep = prevStep;
-
-    function setDefaultDateTime() {
-      const el = document.getElementById("datetime-input");
-      if (!el) return;
-      const now = new Date();
-      const pad = n => String(n).padStart(2, "0");
-      const local = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
-      el.value = local;
-    }
-
-    function initBlindToggle() {
-      const toggle = document.getElementById("blind-toggle");
-      const detailArea = document.getElementById("detail-info-area");
-      if (!toggle || !detailArea) return;
-      const sync = () => detailArea.classList.toggle("hidden", toggle.checked);
-      toggle.addEventListener("change", sync);
-      sync();
-    }
-
-    function initABV() {
-      const intSel = document.getElementById("abvInt");
-      const decSel = document.getElementById("abvDec");
-      const out = document.getElementById("abvValue");
-      const hidden = document.getElementById("abvHidden");
-
-      for (let i = 37; i <= 98; i++) {
-        const opt = document.createElement("option");
-        opt.value = String(i);
-        opt.textContent = String(i);
-        intSel.appendChild(opt);
-      }
-      for (let i = 0; i <= 9; i++) {
-        const opt = document.createElement("option");
-        opt.value = String(i);
-        opt.textContent = String(i);
-        decSel.appendChild(opt);
-      }
-
-      intSel.value = "43";
-      decSel.value = "0";
-
-      function updateABV() {
-        const intPart = parseInt(intSel.value || "0", 10);
-        const decPart = parseInt(decSel.value || "0", 10);
-        const abv = Number((intPart + decPart / 10).toFixed(1));
-        if (abv < 37.0 || abv > 98.0) {
-          out.textContent = "範囲外";
-          hidden.value = "";
-        } else {
-          out.textContent = abv.toFixed(1) + "%";
-          hidden.value = abv.toFixed(1);
-        }
-        updateJsonPreview();
-      }
-
-      intSel.addEventListener("change", updateABV);
-      decSel.addEventListener("change", updateABV);
-      updateABV();
-    }
-
-    function initAge() {
-      const modeSel = document.getElementById("ageMode");
-      const numSel = document.getElementById("ageNum");
-      const unitEl = document.getElementById("ageUnit");
-      const previewEl = document.getElementById("ageValueText");
-      const ageDisplay = document.getElementById("ageDisplay");
-      const ageModeHidden = document.getElementById("ageModeHidden");
-      const ageYearsHidden = document.getElementById("ageYearsHidden");
-
-      for (let i = 0; i <= 100; i++) {
-        const opt = document.createElement("option");
-        opt.value = String(i);
-        opt.textContent = String(i);
-        numSel.appendChild(opt);
-      }
-
-      modeSel.value = "AGE";
-      numSel.value = "12";
-
-      function isSpecialMode(mode) {
-        return mode === "NAS" || mode === "NEW_MAKE" || mode === "NEW_POT";
-      }
-
-      function modeLabel(mode) {
-        switch (mode) {
-          case "NAS": return "NAS";
-          case "NEW_MAKE": return "New Make";
-          case "NEW_POT": return "New Pot";
-          case "AGE":
-          default: return "Age";
-        }
-      }
-
-      function refreshAgeOptionsForMode(mode) {
-        const special = isSpecialMode(mode);
-
-        Array.from(numSel.options).forEach(opt => {
-          const v = parseInt(opt.value, 10);
-          if (!special) {
-            opt.disabled = (v < 3);
-            opt.hidden = (v < 3);
-          } else {
-            opt.disabled = false;
-            opt.hidden = false;
-          }
-        });
-
-        if (!special) {
-          const n = parseInt(numSel.value || "0", 10);
-          if (isNaN(n) || n < 3) numSel.value = "3";
-        } else {
-          numSel.value = "0";
-        }
-
-        numSel.disabled = special;
-        numSel.classList.toggle("is-disabled", special);
-        unitEl.classList.toggle("is-disabled", special);
-        unitEl.style.visibility = special ? "hidden" : "visible";
-      }
-
-      function updateAge() {
-        const mode = modeSel.value;
-        const years = parseInt(numSel.value || "0", 10) || 0;
-        const special = isSpecialMode(mode);
-        let displayText = "";
-        let storedYears = years;
-
-        if (special) {
-          displayText = modeLabel(mode);
-          storedYears = 0;
-        } else {
-          const clamped = Math.min(100, Math.max(3, years));
-          if (clamped !== years) numSel.value = String(clamped);
-          storedYears = clamped;
-          displayText = `${clamped}Y`;
-        }
-
-        previewEl.textContent = displayText;
-        ageDisplay.value = displayText;
-        ageModeHidden.value = mode;
-        ageYearsHidden.value = String(storedYears);
-        updateJsonPreview();
-      }
-
-      modeSel.addEventListener("change", () => {
-        refreshAgeOptionsForMode(modeSel.value);
-        updateAge();
-      });
-      numSel.addEventListener("change", updateAge);
-
-      refreshAgeOptionsForMode(modeSel.value);
-      updateAge();
-    }
-
-    const specGroups = {
-      base: [
-        { code: 'non_chill_filtered', label: 'ノンチル', sub: 'Non-chill Filtered' },
-        { code: 'no_added_coloring', label: '無着色', sub: 'No Added Coloring' },
-        { code: 'cask_strength', label: 'カスクストレングス', sub: 'Cask Strength' },
-        { code: 'barrel_proof', label: 'バレルプルーフ', sub: 'Barrel Proof' },
-        { code: 'single_cask', label: 'シングルカスク', sub: 'Single Cask' },
-        { code: 'single_barrel', label: 'シングルバレル', sub: 'Single Barrel' },
-        { code: 'small_batch', label: '少量仕込み', sub: 'Small Batch' },
-        { code: 'bonded', label: 'ボンデッド', sub: 'Bottled-in-Bond' },
-        { code: 'age_stated', label: '年数表記あり', sub: 'Age Stated' },
-        { code: 'nas', label: 'NAS', sub: 'No Age Statement' },
-        { code: 'vintage', label: 'ヴィンテージ', sub: 'Vintage' },
-        { code: 'limited_edition', label: '限定品', sub: 'Limited Edition' },
-        { code: 'experimental', label: 'エクスペリメンタル', sub: 'Experimental' },
-        { code: 'bottlers', label: 'ボトラーズ', sub: "Bottler's" },
-        { code: 'distillery_bottling', label: '蒸留所ボトリング', sub: 'Distillery Bottling' },
-        { code: 'private_selection', label: 'プライベートセレクション', sub: 'Private Selection' },
-        { code: 'store_pick', label: 'ストアピック', sub: 'Store Pick' },
-        { code: 'barrel_select', label: 'バレルセレクト', sub: 'Barrel Select' }
-      ],
-      malt_type: [
-        { code: 'single_malt', label: 'シングルモルト', sub: 'Single Malt', mutuallyExclusive: 'malttype' },
-        { code: 'blended_malt', label: 'ブレンデッドモルト', sub: 'Blended Malt', mutuallyExclusive: 'malttype' },
-        { code: 'single_grain', label: 'シングルグレーン', sub: 'Single Grain', mutuallyExclusive: 'malttype' },
-        { code: 'grain', label: 'グレーン', sub: 'Grain Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'blended', label: 'ブレンデッド', sub: 'Blended Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'pot_still', label: 'ピュアポットスチル', sub: 'Pure Pot Still', mutuallyExclusive: 'malttype' },
-        { code: 'bourbon', label: 'バーボン', sub: 'Bourbon', mutuallyExclusive: 'malttype' },
-        { code: 'rye', label: 'ライ', sub: 'Rye Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'wheat', label: 'ウィート', sub: 'Wheat Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'corn', label: 'コーン', sub: 'Corn Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'tennessee', label: 'テネシー', sub: 'Tennessee Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'canadian', label: 'カナディアン', sub: 'Canadian Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'japanese', label: 'ジャパニーズ', sub: 'Japanese Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'irish', label: 'アイリッシュ', sub: 'Irish Whiskey', mutuallyExclusive: 'malttype' },
-        { code: 'scotch', label: 'スコッチ', sub: 'Scotch Whisky', mutuallyExclusive: 'malttype' },
-        { code: 'world', label: 'ワールド', sub: 'World Whisky', mutuallyExclusive: 'malttype' }
-      ],
-      style: [
-        { code: 'peated', label: 'ピーテッド', sub: 'Peated', mutuallyExclusive: 'peatedness' },
-        { code: 'lightly_peated', label: 'ライトリーピーテッド', sub: 'Lightly Peated', mutuallyExclusive: 'peatedness' },
-        { code: 'heavily_peated', label: 'ヘビリーピーテッド', sub: 'Heavily Peated', mutuallyExclusive: 'peatedness' },
-        { code: 'unpeated', label: 'アンピーテッド', sub: 'Unpeated', mutuallyExclusive: 'peatedness' },
-        { code: 'distilled_2_5x', label: '2.5回蒸留', sub: 'Springbank式 — 2.5× Partial Triple' },
-        { code: 'distilled_2_81x', label: '2.81回蒸留', sub: 'Mortlach式 — Wee Witchie Process' },
-        { code: 'triple_distilled', label: '三回蒸留', sub: 'Triple Distilled — Auchentoshan / Irish style' },
-        { code: 'distilled_4x', label: '四回蒸留', sub: 'Bruichladdich X4 — Quadruple Distilled' },
-        { code: 'organic', label: 'オーガニック', sub: 'Organic' },
-        { code: 'charcoal_filtered', label: 'チャコールフィルター', sub: 'Lincoln County Process' },
-        { code: 'ex_bourbon', label: 'バーボン樽熟成', sub: 'Ex-Bourbon Cask' },
-        { code: 'ex_sherry', label: 'シェリー樽熟成', sub: 'Ex-Sherry Cask' },
-        { code: 'new_charred_oak', label: 'ニューチャードオーク', sub: 'New Charred Oak' },
-        { code: 'ex_quarter_cask', label: 'クォーターカスク', sub: 'Quarter Cask' },
-        { code: 'ex_octave', label: 'オクターブ', sub: 'Octave Cask' },
-        { code: 'first_fill', label: 'ファーストフィル', sub: 'First Fill' }
-      ],
-      finish: [
-        { code: 'finish_px', label: 'PXフィニッシュ', sub: 'Pedro Ximénez Finish' },
-        { code: 'finish_oloroso', label: 'オロロソフィニッシュ', sub: 'Oloroso Finish' },
-        { code: 'finish_fino', label: 'フィノフィニッシュ', sub: 'Fino Sherry Finish' },
-        { code: 'finish_port', label: 'ポートフィニッシュ', sub: 'Port Cask Finish' },
-        { code: 'finish_ruby_port', label: 'ルビーポートフィニッシュ', sub: 'Ruby Port Finish' },
-        { code: 'finish_tawny_port', label: 'トウニーポートフィニッシュ', sub: 'Tawny Port Finish' },
-        { code: 'finish_sauternes', label: 'ソーテルヌフィニッシュ', sub: 'Sauternes Finish' },
-        { code: 'finish_burgundy', label: 'ブルゴーニュフィニッシュ', sub: 'Burgundy Finish' },
-        { code: 'finish_bordeaux', label: 'ボルドーフィニッシュ', sub: 'Bordeaux Finish' },
-        { code: 'finish_amarone', label: 'アマローネフィニッシュ', sub: 'Amarone Finish' },
-        { code: 'finish_barolo', label: 'バローロフィニッシュ', sub: 'Barolo Finish' },
-        { code: 'finish_madeira', label: 'マデイラフィニッシュ', sub: 'Madeira Finish' },
-        { code: 'finish_marsala', label: 'マルサラフィニッシュ', sub: 'Marsala Finish' },
-        { code: 'finish_cognac', label: 'コニャックフィニッシュ', sub: 'Cognac Cask Finish' },
-        { code: 'finish_armagnac', label: 'アルマニャックフィニッシュ', sub: 'Armagnac Finish' },
-        { code: 'finish_calvados', label: 'カルヴァドスフィニッシュ', sub: 'Calvados Finish' },
-        { code: 'finish_rum', label: 'ラムカスク', sub: 'Rum Cask Finish' },
-        { code: 'finish_tequila', label: 'テキーラカスク', sub: 'Tequila Cask Finish' },
-        { code: 'finish_mezcal', label: 'メスカルカスク', sub: 'Mezcal Cask Finish' },
-        { code: 'finish_beer', label: 'ビール樽フィニッシュ', sub: 'Beer Cask Finish' },
-        { code: 'finish_stout', label: 'スタウト樽フィニッシュ', sub: 'Stout Cask Finish' },
-        { code: 'finish_mizunara', label: 'ミズナラ', sub: 'Mizunara Finish' },
-        { code: 'virgin_oak', label: 'ヴァージンオーク', sub: 'Virgin Oak' },
-        { code: 'str_cask', label: 'STRカスク', sub: 'Shaved / Toasted / Re-charred' },
-        { code: 'double_wood', label: 'ダブルウッド', sub: 'Double Wood' },
-        { code: 'triple_wood', label: 'トリプルウッド', sub: 'Triple Wood' },
-        { code: 'finish_acacia', label: 'アカシアフィニッシュ', sub: 'Acacia Finish' },
-        { code: 'finish_cherry', label: 'チェリーウッドフィニッシュ', sub: 'Cherry Wood Finish' },
-        { code: 'finish_chestnut', label: 'チェスナットフィニッシュ', sub: 'Chestnut Finish' }
-      ]
-    };
-
-    let appliedSelected = new Set([]);
-    let appliedOtherText = '';
-    let draftSelected = new Set([]);
-    let draftOtherText = '';
-
-    const selectedChips = document.getElementById('selectedChips');
-    const backdrop = document.getElementById('backdrop');
-    const otherInput = document.getElementById('otherInput');
-    const groupMap = {
-      base: document.getElementById('baseOptions'),
-      malt_type: document.getElementById('maltTypeOptions'),
-      style: document.getElementById('styleOptions'),
-      finish: document.getElementById('finishOptions')
-    };
-    const stickySelectedChips = document.getElementById('stickySelectedChips');
-    const stickySelectedCount = document.getElementById('stickySelectedCount');
-
-    function allOptions() {
-      return Object.values(specGroups).flat();
-    }
-    function findOption(code) {
-      return allOptions().find(x => x.code === code);
-    }
-
-    function renderSelectedChips() {
-      selectedChips.innerHTML = '';
-      if (!appliedSelected.size && !appliedOtherText.trim()) {
-        selectedChips.innerHTML = '<span class="placeholder">まだ未入力です。「＋ 仕様を選ぶ」からそのまま追加できます。</span>';
-      } else {
-        [...appliedSelected].forEach(code => {
-          const opt = findOption(code);
-          if (!opt) return;
-          const chip = document.createElement('span');
-          chip.className = 'chip active';
-          chip.textContent = opt.label;
-          selectedChips.appendChild(chip);
-        });
-        if (appliedOtherText && appliedOtherText.trim().length > 0) {
-          const chip = document.createElement('span');
-          chip.className = 'chip';
-          chip.textContent = `その他: ${appliedOtherText.trim()}`;
-          selectedChips.appendChild(chip);
-        }
-      }
-      document.getElementById('specCodesHidden').value = [...appliedSelected].join(',');
-      document.getElementById('specOtherHidden').value = appliedOtherText.trim();
-      updateJsonPreview();
-    }
-
-    function renderStickyDraftChips() {
-      stickySelectedChips.innerHTML = '';
-      const count = draftSelected.size + (draftOtherText.trim() ? 1 : 0);
-      stickySelectedCount.textContent = `${count}件`;
-
-      if (!draftSelected.size && !draftOtherText.trim()) {
-        stickySelectedChips.innerHTML = '<span class="sticky-empty">まだ未選択です。下からそのまま追加できます。</span>';
-        updateSectionCounts();
-        return;
-      }
-
-      [...draftSelected].forEach(code => {
-        const opt = findOption(code);
-        if (!opt) return;
-        const chip = document.createElement('span');
-        chip.className = 'sticky-chip';
-        chip.textContent = opt.label;
-        stickySelectedChips.appendChild(chip);
-      });
-
-      if (draftOtherText.trim()) {
-        const chip = document.createElement('span');
-        chip.className = 'sticky-chip';
-        chip.textContent = `その他: ${draftOtherText.trim()}`;
-        stickySelectedChips.appendChild(chip);
-      }
-
-      updateSectionCounts();
-    }
-
-    function renderOptions() {
-      Object.entries(specGroups).forEach(([group, items]) => {
-        groupMap[group].innerHTML = '';
-        items.forEach(item => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'option' + (draftSelected.has(item.code) ? ' selected' : '');
-          btn.dataset.code = item.code;
-          btn.dataset.group = group;
-          if (item.mutuallyExclusive) btn.dataset.exclusive = item.mutuallyExclusive;
-          btn.innerHTML = `<span>${item.label}</span><small>${item.sub}</small>`;
-          btn.addEventListener('click', () => toggleOption(item));
-          groupMap[group].appendChild(btn);
-        });
-      });
-    }
-
-    function toggleOption(item) {
-      if (item.mutuallyExclusive) {
-        allOptions()
-          .filter(x => x.mutuallyExclusive === item.mutuallyExclusive)
-          .forEach(x => draftSelected.delete(x.code));
-        draftSelected.add(item.code);
-      } else {
-        if (draftSelected.has(item.code)) draftSelected.delete(item.code);
-        else draftSelected.add(item.code);
-      }
-      renderOptions();
-      renderStickyDraftChips();
-    }
-
-    function syncDraftToModal() {
-      otherInput.value = draftOtherText;
-      renderOptions();
-      renderStickyDraftChips();
-    }
-
-    function openModal() {
-      draftSelected = new Set(appliedSelected);
-      draftOtherText = appliedOtherText;
-      backdrop.classList.add('is-open');
-      syncDraftToModal();
-    }
-
-    function closeModalDiscard() {
-      backdrop.classList.remove('is-open');
-      draftSelected = new Set(appliedSelected);
-      draftOtherText = appliedOtherText;
-      syncDraftToModal();
-    }
-
-    function applyModal() {
-      appliedSelected = new Set(draftSelected);
-      appliedOtherText = draftOtherText;
-      backdrop.classList.remove('is-open');
-      renderSelectedChips();
-    }
-
-    function resetDraft() {
-      draftSelected = new Set([]);
-      draftOtherText = '';
-      syncDraftToModal();
-    }
-
-    document.getElementById('openModal').addEventListener('click', openModal);
-    document.getElementById('closeModal').addEventListener('click', closeModalDiscard);
-    document.getElementById('applyBtn').addEventListener('click', applyModal);
-    document.getElementById('resetBtn').addEventListener('click', resetDraft);
-
-    otherInput.addEventListener('input', () => {
-      draftOtherText = otherInput.value;
-      renderStickyDraftChips();
-    });
-
-    function toggleSection(id) {
-      const sec = document.getElementById(id);
-      if (!sec) return;
-      sec.classList.toggle('open');
-    }
-    document.querySelectorAll('[data-section-toggle]').forEach(header => {
-      header.addEventListener('click', () => toggleSection(header.dataset.sectionToggle));
-    });
-
-    const sectionGroupMap = {
-      'count-base': 'base',
-      'count-malt': 'malt_type',
-      'count-style': 'style',
-      'count-finish': 'finish'
-    };
-
-    function updateSectionCounts() {
-      Object.entries(sectionGroupMap).forEach(([countId, group]) => {
-        const items = specGroups[group] || [];
-        const n = items.filter(item => draftSelected.has(item.code)).length;
-        const el = document.getElementById(countId);
-        if (!el) return;
-        el.textContent = n + '件';
-        el.classList.toggle('visible', n > 0);
-        if (n > 0) {
-          const sec = el.closest('.section');
-          if (sec) sec.classList.add('open');
-        }
-      });
-
-      const otherEl = document.getElementById('count-other');
-      if (otherEl) {
-        const hasOther = draftOtherText.trim().length > 0;
-        otherEl.textContent = hasOther ? '1件' : '';
-        otherEl.classList.toggle('visible', hasOther);
-      }
-    }
-
-    backdrop.addEventListener('click', (e) => {
-      if (e.target === backdrop) closeModalDiscard();
-    });
-
-    function readField(id) {
-      const el = document.getElementById(id);
-      return el ? el.value : '';
-    }
-
-    function updateJsonPreview() {
-      const data = {
-        no: readField('sample-no'),
-        datetime: readField('datetime-input'),
-        blind: document.getElementById('blind-toggle').checked,
-        brand: readField('brand-input'),
-        distillery: readField('distillery-input'),
-        owner: readField('owner-input'),
-        country: readField('country-input'),
-        region: readField('region-input'),
-        subRegion: readField('subregion-input'),
-        category: readField('category-input'),
-        specs: {
-          codes: [...appliedSelected],
-          other: appliedOtherText.trim()
-        },
-        abv: readField('abvHidden'),
-        age: {
-          display: readField('ageDisplay'),
-          mode: readField('ageModeHidden'),
-          years: readField('ageYearsHidden')
-        }
-      };
-      document.getElementById('jsonPreview').textContent = JSON.stringify(data, null, 2);
-    }
-
-    function bindPreviewInputs() {
-      const ids = [
-        'sample-no','datetime-input','blind-toggle','brand-input','distillery-input',
-        'owner-input','country-input','region-input','subregion-input','category-input'
-      ];
-      ids.forEach(id => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        const ev = el.type === 'checkbox' ? 'change' : 'input';
-        el.addEventListener(ev, updateJsonPreview);
-      });
-    }
-
-    document.getElementById('saveDraftBtn').addEventListener('click', () => {
-      updateJsonPreview();
-      alert('下書き保存用の値をプレビューに反映しました。');
-    });
-
-    setDefaultDateTime();
-    updateStepUI();
-    initBlindToggle();
-    initABV();
-    initAge();
-    renderOptions();
-    renderSelectedChips();
-    renderStickyDraftChips();
-    bindPreviewInputs();
-    updateJsonPreview();
-
-// ===== 蒸留所データ連動エンジン（whisky_data.json 対応版） =====
-    let whiskeyData = {};
-    let distLookup = {};    // 表示名 → { c, r, s } の逆引きマップ
-    let rawToDisplay = {};  // 生データ名 → 表示名 の変換マップ
-
-    const distInput = document.getElementById('distillery-input');
-    const subRegInput = document.getElementById('subregion-input');
-    const regInput = document.getElementById('region-input');
-    const countryInput = document.getElementById('country-input');
-
-    // 蒸留所の生データ名から表示用の名前を抽出する
-    // 例: "サントリー知多蒸留所 (Suntory Chita Distillery) [2022年-]"
-    //   → "サントリー知多蒸留所 (Suntory Chita Distillery)"
-    function distDisplayName(raw) {
-      return raw.replace(/\s*\[.*?\]\s*$/, '').trim();
-    }
-
-    // whisky_data.json を読み込み、datalist と逆引きデータを構築
-    fetch('whisky_data.json')
-      .then(r => r.json())
-      .then(data => {
-        whiskeyData = data;
-
-        // 【逆引き用マップ作成】
-        // whisky_data.json の構造：国(c) -> 地方(r) -> 県/地区(s) -> 蒸留所リスト(d)
-        // 蒸留所名は "[年号-]" 付きなので、表示名に変換してマッピング
-        Object.keys(data).forEach(c => {
-          Object.keys(data[c]).forEach(r => {
-            Object.keys(data[c][r]).forEach(s => {
-              data[c][r][s].forEach(rawName => {
-                const displayName = distDisplayName(rawName);
-                distLookup[displayName] = { c, r, s };
-                rawToDisplay[rawName] = displayName;
-              });
-            });
+    // 構造：地域(c) -> 大地域(r) -> 小地域(s) -> 蒸留所オブジェクト配列
+    Object.keys(data).forEach(c => {
+      Object.keys(data[c]).forEach(r => {
+        Object.keys(data[c][r]).forEach(s => {
+          data[c][r][s].forEach(item => {
+            const displayName = distDisplayName(item);
+            distLookup[displayName] = {
+              c,
+              r,
+              s,
+              owner: item.owner || '',
+              startYear: item.startYear || '',
+              notes: item.notes || '',
+              regionEn: item.regionEn || '',
+              prefectureEn: item.prefectureEn || ''
+            };
           });
         });
-
-        updateLocationLists();
-        console.log("Whisky data loaded successfully. 蒸留所数:", Object.keys(distLookup).length);
-      })
-      .catch(err => {
-        console.error('whisky_data.json の読み込みに失敗しました。ファイルが index.html と同じ階層にあるか確認してください:', err);
       });
+    });
 
-    // 候補リスト（datalist）を現在の入力状況に合わせて絞り込む
-    function updateLocationLists() {
-      const c = countryInput.value;
-      const r = regInput.value;
-      const s = subRegInput.value;
+    updateLocationLists();
+    console.log("Whisky data loaded successfully. 蒸留所数:", Object.keys(distLookup).length);
+  })
+  .catch(err => {
+    console.error('whisky_data.json の読み込みに失敗しました。ファイルが index.html と同じ階層にあるか確認してください:', err);
+  });
 
-      let countries = [], regions = [], subRegions = [], distilleries = [];
+// 候補リスト（datalist）を現在の入力状況に合わせて絞り込む
+function updateLocationLists() {
+  const c = countryInput.value.trim();
+  const r = regInput.value.trim();
+  const s = subRegInput.value.trim();
 
-      Object.keys(whiskeyData).forEach(country => {
-        countries.push(country);
-        if (!c || c === country) {
-          Object.keys(whiskeyData[country]).forEach(region => {
-            regions.push(region);
-            if (!r || r === region) {
-              Object.keys(whiskeyData[country][region]).forEach(sub => {
-                if (sub !== '-') subRegions.push(sub);
-                if (!s || s === sub) {
-                  // 生データ名を表示名に変換して候補に追加
-                  whiskeyData[country][region][sub].forEach(rawName => {
-                    distilleries.push(distDisplayName(rawName));
-                  });
-                }
+  let countries = [], regions = [], subRegions = [], distilleries = [];
+
+  Object.keys(whiskeyData).forEach(country => {
+    countries.push(country);
+
+    if (!c || c === country) {
+      Object.keys(whiskeyData[country]).forEach(region => {
+        regions.push(region);
+
+        if (!r || r === region) {
+          Object.keys(whiskeyData[country][region]).forEach(sub => {
+            if (sub !== '-') subRegions.push(sub);
+
+            if (!s || s === sub) {
+              whiskeyData[country][region][sub].forEach(item => {
+                distilleries.push(distDisplayName(item));
               });
             }
           });
         }
       });
-
-      const fillDatalist = (id, items) => {
-        const dl = document.getElementById(id);
-        if (!dl) return;
-        dl.innerHTML = '';
-        // 重複を除去してソートして追加
-        [...new Set(items)].sort().forEach(v => {
-          const opt = document.createElement('option');
-          opt.value = v;
-          dl.appendChild(opt);
-        });
-      };
-
-      fillDatalist('countryList', countries);
-      fillDatalist('regionList', regions);
-      fillDatalist('subRegionList', subRegions);
-      fillDatalist('distilleryList', distilleries);
     }
+  });
 
-    // 蒸留所入力時の逆引き（国・地域を自動入力）
-    distInput.addEventListener('change', () => {
-      const d = distInput.value;
-      if (distLookup[d]) {
-        const p = distLookup[d];
-        countryInput.value = p.c;
-        regInput.value = p.r;
-        subRegInput.value = (p.s === '-') ? '' : p.s;
-        updateLocationLists();
+  const fillDatalist = (id, items) => {
+    const dl = document.getElementById(id);
+    if (!dl) return;
+    dl.innerHTML = '';
 
-        // 自動入力されたことを視覚的にフィードバック
-        [countryInput, regInput, subRegInput].forEach(el => {
-          el.style.transition = 'background-color 0.4s';
-          el.style.backgroundColor = '#fff4e0';
-          setTimeout(() => { el.style.backgroundColor = ''; }, 800);
-        });
+    [...new Set(items)].sort().forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = v;
+      dl.appendChild(opt);
+    });
+  };
 
-        updateJsonPreview();
-      }
+  fillDatalist('countryList', countries);
+  fillDatalist('regionList', regions);
+  fillDatalist('subRegionList', subRegions);
+  fillDatalist('distilleryList', distilleries);
+}
+
+// 蒸留所入力時の逆引き（地域・大地域・小地域・オーナーを自動入力）
+distInput.addEventListener('change', () => {
+  const d = distInput.value.trim();
+
+  if (distLookup[d]) {
+    const p = distLookup[d];
+
+    countryInput.value = p.c;
+    regInput.value = p.r;
+    subRegInput.value = (p.s === '-') ? '' : p.s;
+    ownerInput.value = p.owner || '';
+
+    updateLocationLists();
+
+    // 自動入力されたことを視覚的にフィードバック
+    [countryInput, regInput, subRegInput, ownerInput].forEach(el => {
+      el.style.transition = 'background-color 0.4s';
+      el.style.backgroundColor = '#fff4e0';
+      setTimeout(() => { el.style.backgroundColor = ''; }, 800);
     });
 
-    // 国・地域変更時にリスト候補を絞り込み
-    countryInput.addEventListener('change', () => {
-      regInput.value = '';
-      subRegInput.value = '';
-      distInput.value = '';
-      updateLocationLists();
-      updateJsonPreview();
-    });
-    regInput.addEventListener('change', () => {
-      subRegInput.value = '';
-      distInput.value = '';
-      updateLocationLists();
-      updateJsonPreview();
-    });
-    subRegInput.addEventListener('change', () => {
-      distInput.value = '';
-      updateLocationLists();
-      updateJsonPreview();
-    });
+    updateJsonPreview();
+  }
+});
 
-  </script>
+// 地域・大地域変更時に候補を絞り込み
+countryInput.addEventListener('change', () => {
+  regInput.value = '';
+  subRegInput.value = '';
+  distInput.value = '';
+  ownerInput.value = '';
+  updateLocationLists();
+
+  updateJsonPreview();
+});
+
+regInput.addEventListener('change', () => {
+  subRegInput.value = '';
+  distInput.value = '';
+  ownerInput.value = '';
+  updateLocationLists();
+  updateJsonPreview();
+});
+
+subRegInput.addEventListener('change', () => {
+  distInput.value = '';
+  ownerInput.value = '';
+  updateLocationLists();
+  updateJsonPreview();
+});
+</script>
 </body>
 </html>
