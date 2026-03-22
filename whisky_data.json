@@ -54,7 +54,7 @@
       "ローレンスバーグ": [
         {
           "nameJa": "MGPイングリーディエンツ（ロス＆スクイブ）",
-          "nameEn": "MGP Ingredients (Ross & Squib)",
+          "nameEn": "MGP Ingredients (Ross & Squibb)",
           "owner": "MGP Ingredients",
           "startYear": "1847",
           "notes": "全米多数ブランドの原酒を供給。リデンプション、テンプルトンライ等",
@@ -68,7 +68,7 @@
         {
           "nameJa": "ウェストワード・ウイスキー",
           "nameEn": "Westward Whiskey",
-          "owner": "House Spirits",
+          "owner": "Diageo",
           "startYear": "2004",
           "notes": "オレゴン産麦芽使用。IPAビール酵母で発酵",
           "regionEn": "OR",
@@ -170,7 +170,7 @@
           "nameJa": "ウィレット・ディスティラリー",
           "nameEn": "Willett Distillery",
           "owner": "Willett (家族経営)",
-          "startYear": "1935",
+          "startYear": "1937",
           "notes": "ファミリーエステート、ノアズミル",
           "regionEn": "KY",
           "prefectureEn": "Bardstown"
@@ -196,7 +196,7 @@
         {
           "nameJa": "ラックス・ロウ・ディスティラーズ",
           "nameEn": "Lux Row Distillers",
-          "owner": "Luxco",
+          "owner": "MGP Ingredients",
           "startYear": "2018",
           "notes": "エズラブルックス、リベルダード、ブラッドオース",
           "regionEn": "KY",
@@ -583,7 +583,7 @@
         {
           "nameJa": "ワイオミング・ウイスキー",
           "nameEn": "Wyoming Whiskey",
-          "owner": "Independent",
+          "owner": "Edrington Group",
           "startYear": "2009",
           "notes": "ビッグホーン盆地の小麦農場隣接。ダブルカスクシリーズ",
           "regionEn": "WY",
@@ -626,7 +626,7 @@
         {
           "nameJa": "カナディアンミスト蒸留所",
           "nameEn": "Canadian Mist Distillery",
-          "owner": "Brown-Forman（米）",
+          "owner": "Sazerac (サゼラック)",
           "startYear": "1967",
           "notes": "カナディアンミスト、コリングウッド。3回蒸留。ジョージア湾の仕込み水",
           "regionEn": "Central Canada",
@@ -989,7 +989,7 @@
         {
           "nameJa": "キルベガン",
           "nameEn": "Kilbeggan Distillery",
-          "owner": "Suntory Global Spirits",
+          "owner": "Suntory Global Spirits (サントリー)",
           "startYear": "2007",
           "notes": "1757年創業・世界最古の登録蒸留所の一つ。クーリーが再開",
           "regionEn": "Midlands",
@@ -1051,7 +1051,7 @@
         {
           "nameJa": "クーリー",
           "nameEn": "Cooley Distillery",
-          "owner": "Suntory Global Spirits",
+          "owner": "Suntory Global Spirits (サントリー)",
           "startYear": "1987",
           "notes": "カネマラ（ピーテッド）、ターコネル、キルベガン",
           "regionEn": "Midlands",
@@ -1638,7 +1638,7 @@
           "nameEn": "Mikuni Distillery",
           "owner": "ミクニ",
           "startYear": "2023",
-          "notes": "大阪府",
+          "notes": "福井県",
           "regionEn": "Chubu",
           "prefectureEn": "Fukui"
         }
@@ -2067,15 +2067,6 @@
           "prefectureEn": "Hokkaido"
         },
         {
-          "nameJa": "当別蒸留所",
-          "nameEn": "Tobetsu Distillery",
-          "owner": "Whisky Student",
-          "startYear": "2023",
-          "notes": "北海道当別町",
-          "regionEn": "Hokkaido",
-          "prefectureEn": "Hokkaido"
-        },
-        {
           "nameJa": "苫小牧蒸留所",
           "nameEn": "Tomakomai Distillery",
           "owner": "ベンチャーグレイン（秩父・グレーン拠点）",
@@ -2205,7 +2196,7 @@
           "nameJa": "玉野アセンド蒸留所",
           "nameEn": "Tamano Ascend Distillery",
           "owner": "CTIアセンド",
-          "startYear": "2023",
+          "startYear": "2024",
           "notes": "福島県相馬市",
           "regionEn": "Tohoku",
           "prefectureEn": "Fukushima"
@@ -2214,7 +2205,7 @@
           "nameJa": "天鏡蒸留所",
           "nameEn": "Tenkyo Distillery",
           "owner": "天鏡（リオン・ドール）",
-          "startYear": "2022",
+          "startYear": "2024",
           "notes": "福島県磐梯町",
           "regionEn": "Tohoku",
           "prefectureEn": "Fukushima"
@@ -2595,7 +2586,7 @@
         {
           "nameJa": "ボウモア",
           "nameEn": "Bowmore",
-          "owner": "Beam Suntory",
+          "owner": "Suntory Global Spirits (サントリー)",
           "startYear": "1779",
           "notes": "",
           "regionEn": "Islay",
@@ -2626,7 +2617,7 @@
           "nameEn": "Port Ellen",
           "owner": "Diageo",
           "startYear": "1824",
-          "notes": "閉鎖・再開準備中",
+          "notes": "2024年3月に再稼働済み。ダイアジオの最高峰拠点。",
           "regionEn": "Islay",
           "prefectureEn": "South"
         },
@@ -2642,7 +2633,7 @@
         {
           "nameJa": "ラフロイグ",
           "nameEn": "Laphroaig",
-          "owner": "Beam Suntory",
+          "owner": "Suntory Global Spirits (サントリー)",
           "startYear": "1815",
           "notes": "",
           "regionEn": "Islay",
@@ -2773,17 +2764,6 @@
           "prefectureEn": "Isle of Harris"
         }
       ],
-      "バラ島": [
-        {
-          "nameJa": "アイル・オブ・バラ",
-          "nameEn": "Isle of Barra",
-          "owner": "Isle of Barra Distillers",
-          "startYear": "2024予定",
-          "notes": "ラウンドアップのみ",
-          "regionEn": "Islands",
-          "prefectureEn": "Isle of Barra"
-        }
-      ],
       "マル島": [
         {
           "nameJa": "トバモリー",
@@ -2791,15 +2771,6 @@
           "owner": "Distell International / Heineken",
           "startYear": "1798",
           "notes": "",
-          "regionEn": "Islands",
-          "prefectureEn": "Isle of Mull"
-        },
-        {
-          "nameJa": "レダイグ",
-          "nameEn": "Ledaig",
-          "owner": "Distell International / Heineken",
-          "startYear": "1798",
-          "notes": "トバモリー第2ブランド",
           "regionEn": "Islands",
           "prefectureEn": "Isle of Mull"
         }
@@ -3393,27 +3364,27 @@
         {
           "nameJa": "アバフェルディ",
           "nameEn": "Aberfeldy",
-          "owner": "Distell International / Heineken",
-          "startYear": "1965",
-          "notes": "",
+          "owner": "John Dewar & Sons (Bacardi)",
+          "startYear": "1898",
+          "notes": "1965年は再建年です。創業は1898年。",
           "regionEn": "Highland",
           "prefectureEn": "Central Highlands"
         },
         {
           "nameJa": "エドラダワー",
           "nameEn": "Edradour",
-          "owner": "Lalique Group / Hansjörg Wyss",
-          "startYear": "1775",
-          "notes": "",
+          "owner": "Signatory Vintage",
+          "startYear": "1825",
+          "notes": "1775年は前身の農場。蒸留所としては1825年。",
           "regionEn": "Highland",
           "prefectureEn": "Central Highlands"
         },
         {
           "nameJa": "グレンタレット",
           "nameEn": "Glenturret",
-          "owner": "Loch Lomond Group",
-          "startYear": "1964",
-          "notes": "",
+          "owner": "Lalique Group",
+          "startYear": "1763",
+          "notes": "1964年は再開年。スコットランド最古級の1763年が正解。",
           "regionEn": "Highland",
           "prefectureEn": "Central Highlands"
         },
@@ -3429,8 +3400,8 @@
         {
           "nameJa": "スペイサイド蒸留所",
           "nameEn": "Speyside Distillery",
-          "owner": "Aurora Brewing Ltd",
-          "startYear": "2013",
+          "owner": "Harvey's of Edinburgh",
+          "startYear": "1990",
           "notes": "",
           "regionEn": "Highland",
           "prefectureEn": "Central Highlands"
@@ -3456,25 +3427,25 @@
         {
           "nameJa": "ディーンストン",
           "nameEn": "Deanston",
-          "owner": "Ian Macleod Distillers",
-          "startYear": "1833",
-          "notes": "",
+          "owner": "Distell International / Heineken",
+          "startYear": "1965",
+          "notes": "1833年は建物の竣工。蒸留開始は1965年です。",
           "regionEn": "Highland",
           "prefectureEn": "Central Highlands"
         },
         {
           "nameJa": "トマーティン",
           "nameEn": "Tomatin",
-          "owner": "Diageo",
-          "startYear": "1819",
-          "notes": "再開準備中",
+          "owner": "宝酒造 (Takara Shuzo)",
+          "startYear": "1897",
+          "notes": "1986年から宝酒造のもとで元気に稼働しています。",
           "regionEn": "Highland",
           "prefectureEn": "Central Highlands"
         },
         {
           "nameJa": "ブレアアソール",
           "nameEn": "Blair Athol",
-          "owner": "Signatory Vintage Scotch Whisky Co.",
+          "owner": "Diageo",
           "startYear": "1825",
           "notes": "",
           "regionEn": "Highland",
@@ -3494,9 +3465,9 @@
         {
           "nameJa": "ウルフバーン",
           "nameEn": "Wolfburn",
-          "owner": "Diageo",
-          "startYear": "1817",
-          "notes": "",
+          "owner": "Independent",
+          "startYear": "2013",
+          "notes": "1817年は旧蒸留所。現在の稼働は2013年です。",
           "regionEn": "Highland",
           "prefectureEn": "Northern Highlands"
         },
@@ -3548,9 +3519,9 @@
         {
           "nameJa": "ティーニニック",
           "nameEn": "Teaninich",
-          "owner": "Harvey's of Edinburgh",
-          "startYear": "1990",
-          "notes": "",
+          "owner": "Diageo",
+          "startYear": "1817",
+          "notes": "1990年は大幅改修年。創業は1817年です。",
           "regionEn": "Highland",
           "prefectureEn": "Northern Highlands"
         },
@@ -3584,8 +3555,8 @@
         {
           "nameJa": "ブローラ",
           "nameEn": "Brora",
-          "owner": "Tomatin Distillery Co. (Takara Shuzo & Okura)",
-          "startYear": "1897",
+          "owner": "Diageo",
+          "startYear": "1819",
           "notes": "",
           "regionEn": "Highland",
           "prefectureEn": "Northern Highlands"
@@ -3614,7 +3585,7 @@
           "nameJa": "グレンゴイン",
           "nameEn": "Glengoyne",
           "owner": "John Dewar & Sons (Bacardi)",
-          "startYear": "1896",
+          "startYear": "1833",
           "notes": "",
           "regionEn": "Highland",
           "prefectureEn": "Southern Highlands"
@@ -3622,8 +3593,8 @@
         {
           "nameJa": "ロッホローモンド",
           "nameEn": "Loch Lomond",
-          "owner": "Diageo",
-          "startYear": "1798",
+          "owner": "Loch Lomond Group",
+          "startYear": "1964",
           "notes": "",
           "regionEn": "Highland",
           "prefectureEn": "Southern Highlands"
@@ -3633,7 +3604,7 @@
         {
           "nameJa": "アードモア",
           "nameEn": "Ardmore",
-          "owner": "Beam Suntory",
+          "owner": "Suntory Global Spirits",
           "startYear": "1898",
           "notes": "",
           "regionEn": "Highland",
@@ -3660,7 +3631,7 @@
         {
           "nameJa": "グレンギリー",
           "nameEn": "Glen Garioch",
-          "owner": "Beam Suntory",
+          "owner": "Suntory Global Spirits",
           "startYear": "1797",
           "notes": "",
           "regionEn": "Highland",
@@ -3812,7 +3783,7 @@
         {
           "nameJa": "オーヘントッシャン",
           "nameEn": "Auchentoshan",
-          "owner": "Beam Suntory",
+          "owner": "Suntory Global Spirits",
           "startYear": "1823",
           "notes": "",
           "regionEn": "Lowland",
@@ -3899,7 +3870,7 @@
           "nameEn": "Rosebank",
           "owner": "Ian Macleod Distillers",
           "startYear": "1840",
-          "notes": "再開準備中",
+          "notes": "2024年6月にビジターセンター含め完全再開。",
           "regionEn": "Lowland",
           "prefectureEn": "Falkirk"
         }
