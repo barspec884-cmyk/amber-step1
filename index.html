@@ -719,10 +719,12 @@
                 <input type="hidden" id="abvHidden" value="46.0">
               </div>
 
-              <!-- 4. 蒸留所（逆引き対応） -->
+              <!-- 4. 蒸留所（ホイールピッカー） -->
               <div class="input-group column">
                 <div><span class="label-main">蒸留所</span><span class="label-sub">Distillery:</span></div>
-                <input type="text" id="distillery-input" list="distilleryList" placeholder="蒸留所を入力（逆引き対応）">
+                <div class="value-box" id="distilleryChip"><span class="placeholder">タップして選択</span></div>
+                <button class="btn-open-modal" id="openDistilleryPicker" type="button">＋ 蒸留所を選ぶ</button>
+                <input type="hidden" id="distillery-input" value="">
                 <datalist id="distilleryList"></datalist>
               </div>
 
@@ -784,7 +786,7 @@
 
             <div class="input-group column">
               <div><span class="label-main">場所</span><span class="label-sub">Location:</span></div>
-              <input type="text" id="location-input" placeholder="例: 自宅 / Bar ABC / 友人宅">
+              <input type="text" id="location-input" placeholder="例: 自宅 / Bar SPEC / 友人宅">
             </div>
 
             <div class="input-group column">
@@ -945,6 +947,136 @@
       </div>
     </div>
   </div>
+
+  <!-- 蒸留所ホイールピッカーモーダル -->
+  <div class="modal-backdrop" id="distPickerBackdrop">
+    <div class="modal" role="dialog" aria-modal="true" style="max-height:80vh;">
+      <div class="grabber"></div>
+      <div class="modal-head">
+        <div class="modal-title">蒸留所を選ぶ</div>
+        <button class="icon-btn" id="closeDistPicker" aria-label="閉じる" type="button">×</button>
+      </div>
+      <div class="dist-picker-search">
+        <input type="text" id="distSearchInput" placeholder="🔍 名前で検索..." autocomplete="off">
+      </div>
+      <div class="dist-picker-info" id="distPickerInfo">候補を読み込み中...</div>
+      <div class="wheel-wrapper">
+        <div class="wheel-highlight"></div>
+        <div class="wheel-fade-top"></div>
+        <div class="wheel-fade-bottom"></div>
+        <div class="wheel-scroll" id="wheelScroll"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="clearDistPicker" type="button">クリア</button>
+        <button class="btn primary" id="applyDistPicker" type="button">この蒸留所を選択</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .dist-picker-search {
+      margin-bottom: 10px;
+    }
+    .dist-picker-search input {
+      width: 100%;
+      border: 1.4px solid rgba(63,53,45,.15);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 16px;
+      outline: none;
+      box-sizing: border-box;
+      background: #fff;
+    }
+    .dist-picker-search input:focus {
+      border-color: var(--btn-orange);
+      box-shadow: 0 0 0 2px rgba(206,128,77,0.2);
+    }
+    .dist-picker-info {
+      font-size: 12px;
+      color: var(--text-sub);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .wheel-wrapper {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1.5px solid rgba(63,53,45,.10);
+      background: #fff;
+    }
+    .wheel-highlight {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 48px;
+      transform: translateY(-50%);
+      background: var(--spec-accent-soft);
+      border-top: 2px solid var(--spec-accent);
+      border-bottom: 2px solid var(--spec-accent);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .wheel-fade-top,
+    .wheel-fade-bottom {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 96px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .wheel-fade-top {
+      top: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0));
+    }
+    .wheel-fade-bottom {
+      bottom: 0;
+      background: linear-gradient(to top, rgba(255,255,255,0.92), rgba(255,255,255,0));
+    }
+    .wheel-scroll {
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      z-index: 3;
+    }
+    .wheel-scroll::-webkit-scrollbar { display: none; }
+    .wheel-spacer {
+      height: 96px;
+      flex-shrink: 0;
+    }
+    .wheel-item {
+      height: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: center;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      padding: 0 12px;
+    }
+    .wheel-item-main {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .wheel-item-sub {
+      font-size: 10px;
+      color: var(--text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+  </style>
 
   <script>
     const stepTitles = ["Input Basic", "Color / Nose", "Palate / Finish", "Score / Mood", "Review"];
@@ -1797,28 +1929,180 @@
       });
     }
 
-    // --- 蒸留所を選択 → 国・エリア・小地域・オーナーを自動入力 ---
-    distInput.addEventListener('change', () => {
-      const d = distInput.value.trim();
-      const match = allDistilleries.find(item => item.displayName === d);
+    // ===== 蒸留所ホイールピッカー =====
+    const distPickerBackdrop = document.getElementById('distPickerBackdrop');
+    const distSearchInput = document.getElementById('distSearchInput');
+    const distPickerInfo = document.getElementById('distPickerInfo');
+    const wheelScroll = document.getElementById('wheelScroll');
+    const distChip = document.getElementById('distilleryChip');
+    let wheelItems = [];
+    let wheelSelectedName = '';
+
+    function getFilteredDistilleries() {
+      const cVal = countryInput.value.trim();
+      const rVal = regInput.value.trim();
+      const sVal = subRegInput.value.trim();
+      const oVal = ownerInput.value.trim();
+      return allDistilleries.filter(d => {
+        if (cVal && d.c !== cVal) return false;
+        if (rVal && d.r !== rVal) return false;
+        if (sVal && d.s !== sVal && d.s !== '-') return false;
+        if (oVal && d.owner !== oVal) return false;
+        return true;
+      });
+    }
+
+    function buildWheel(filterText) {
+      let candidates = getFilteredDistilleries();
+      const q = (filterText || '').trim().toLowerCase();
+      if (q) {
+        candidates = candidates.filter(d => d.displayName.toLowerCase().includes(q));
+      }
+      // 重複排除してソート
+      const seen = new Set();
+      wheelItems = [];
+      candidates.sort((a, b) => a.displayName.localeCompare(b.displayName, 'ja'));
+      candidates.forEach(d => {
+        if (!seen.has(d.displayName)) {
+          seen.add(d.displayName);
+          wheelItems.push(d);
+        }
+      });
+
+      distPickerInfo.textContent = wheelItems.length > 0
+        ? `${wheelItems.length}件の候補`
+        : '該当する蒸留所がありません';
+
+      wheelScroll.innerHTML = '';
+      // 上下のスペーサー（中央揃え用）
+      const topSpacer = document.createElement('div');
+      topSpacer.className = 'wheel-spacer';
+      wheelScroll.appendChild(topSpacer);
+
+      wheelItems.forEach((d, i) => {
+        const el = document.createElement('div');
+        el.className = 'wheel-item';
+        el.dataset.index = i;
+        // 日本語名と英語名を分離して表示
+        const parts = d.displayName.match(/^(.+?)\s*\((.+)\)$/);
+        if (parts) {
+          el.innerHTML = `<div class="wheel-item-main">${parts[1]}</div><div class="wheel-item-sub">${parts[2]}</div>`;
+        } else {
+          el.innerHTML = `<div class="wheel-item-main">${d.displayName}</div>`;
+        }
+        el.addEventListener('click', () => {
+          // クリックでその項目を中央にスクロール
+          const targetTop = el.offsetTop - 96;
+          wheelScroll.scrollTo({ top: targetTop, behavior: 'smooth' });
+        });
+        wheelScroll.appendChild(el);
+      });
+
+      const bottomSpacer = document.createElement('div');
+      bottomSpacer.className = 'wheel-spacer';
+      wheelScroll.appendChild(bottomSpacer);
+
+      // 選択済みの蒸留所があればその位置にスクロール
+      if (wheelSelectedName) {
+        const idx = wheelItems.findIndex(d => d.displayName === wheelSelectedName);
+        if (idx >= 0) {
+          const target = wheelScroll.children[idx + 1]; // +1 for topSpacer
+          if (target) {
+            setTimeout(() => {
+              wheelScroll.scrollTo({ top: target.offsetTop - 96, behavior: 'auto' });
+            }, 50);
+          }
+        }
+      }
+    }
+
+    function getWheelSelectedIndex() {
+      const scrollCenter = wheelScroll.scrollTop + 120; // 240/2
+      let closest = 0;
+      let minDist = Infinity;
+      wheelItems.forEach((_, i) => {
+        const el = wheelScroll.children[i + 1]; // +1 for spacer
+        if (!el) return;
+        const itemCenter = el.offsetTop + 24; // 48/2
+        const dist = Math.abs(scrollCenter - itemCenter);
+        if (dist < minDist) {
+          minDist = dist;
+          closest = i;
+        }
+      });
+      return closest;
+    }
+
+    function updateDistChip() {
+      distChip.innerHTML = '';
+      if (distInput.value) {
+        const chip = document.createElement('span');
+        chip.className = 'chip active';
+        chip.textContent = distInput.value;
+        distChip.appendChild(chip);
+      } else {
+        distChip.innerHTML = '<span class="placeholder">タップして選択</span>';
+      }
+    }
+
+    function applyDistSelection(name) {
+      distInput.value = name;
+      wheelSelectedName = name;
+      const match = allDistilleries.find(item => item.displayName === name);
       if (match) {
         countryInput.value = match.c;
-        regInput.value     = match.r;
-        subRegInput.value  = (match.s === '-') ? '' : match.s;
-        ownerInput.value   = match.owner || '';
-
-        // 自動入力フィードバック（黄色に一瞬光る）
+        regInput.value = match.r;
+        subRegInput.value = (match.s === '-') ? '' : match.s;
+        ownerInput.value = match.owner || '';
         [countryInput, regInput, subRegInput, ownerInput].forEach(el => {
           el.style.transition = 'background-color 0.4s';
           el.style.backgroundColor = '#fff4e0';
           setTimeout(() => { el.style.backgroundColor = ''; }, 800);
         });
       }
+      updateDistChip();
       updateAllLists();
       updateJsonPreview();
-      // 国が変わったので種別セクションも再描画
       renderOptions();
+    }
+
+    document.getElementById('openDistilleryPicker').addEventListener('click', () => {
+      distSearchInput.value = '';
+      wheelSelectedName = distInput.value || '';
+      distPickerBackdrop.classList.add('is-open');
+      buildWheel('');
     });
+
+    document.getElementById('closeDistPicker').addEventListener('click', () => {
+      distPickerBackdrop.classList.remove('is-open');
+    });
+
+    distPickerBackdrop.addEventListener('click', (e) => {
+      if (e.target === distPickerBackdrop) distPickerBackdrop.classList.remove('is-open');
+    });
+
+    distSearchInput.addEventListener('input', () => {
+      buildWheel(distSearchInput.value);
+    });
+
+    document.getElementById('applyDistPicker').addEventListener('click', () => {
+      if (wheelItems.length > 0) {
+        const idx = getWheelSelectedIndex();
+        applyDistSelection(wheelItems[idx].displayName);
+      }
+      distPickerBackdrop.classList.remove('is-open');
+    });
+
+    document.getElementById('clearDistPicker').addEventListener('click', () => {
+      distInput.value = '';
+      wheelSelectedName = '';
+      updateDistChip();
+      updateJsonPreview();
+      distPickerBackdrop.classList.remove('is-open');
+    });
+
+    // 初期表示
+    updateDistChip();
 
     // --- 国を変更 → 下位をクリアして候補絞り込み＋種別再描画 ---
     countryInput.addEventListener('change', () => {
@@ -1826,7 +2110,8 @@
       subRegInput.value = '';
       distInput.value = '';
       ownerInput.value = '';
-      // 国が変わったら種別の選択をクリア（表示される選択肢が変わるため）
+      wheelSelectedName = '';
+      updateDistChip();
       specGroups.malt_type.forEach(item => {
         draftSelected.delete(item.code);
         appliedSelected.delete(item.code);
@@ -1842,6 +2127,8 @@
     regInput.addEventListener('change', () => {
       subRegInput.value = '';
       distInput.value = '';
+      wheelSelectedName = '';
+      updateDistChip();
       updateAllLists();
       updateJsonPreview();
     });
@@ -1849,6 +2136,8 @@
     // --- 小地域を変更 → 蒸留所をクリアして候補絞り込み ---
     subRegInput.addEventListener('change', () => {
       distInput.value = '';
+      wheelSelectedName = '';
+      updateDistChip();
       updateAllLists();
       updateJsonPreview();
     });
@@ -1856,6 +2145,8 @@
     // --- オーナーを変更 → 蒸留所候補を絞り込み ---
     ownerInput.addEventListener('change', () => {
       distInput.value = '';
+      wheelSelectedName = '';
+      updateDistChip();
       updateAllLists();
       updateJsonPreview();
     });
