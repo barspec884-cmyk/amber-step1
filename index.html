@@ -732,7 +732,7 @@
               </div>
 
               <!-- 10. オーナー -->
-              <div class="input-group column"><div><span class="label-main">オーナー</span><span class="label-sub">Owner:</span></div><input type="text" id="owner-input"></div>
+              <div class="input-group column"><div><span class="label-main">オーナー</span><span class="label-sub">Owner:</span></div><input type="text" id="owner-input" list="ownerList" placeholder="オーナーを選択、または自由入力"><datalist id="ownerList"></datalist></div>
             </div>
 
             <div class="input-group column">
@@ -1375,155 +1375,180 @@
     bindPreviewInputs();
     updateJsonPreview();
 
-// ===== 蒸留所データ連動エンジン（whisky_data.json オブジェクト形式対応版） =====
+// ===== 蒸留所データ連動エンジン（whisky_data.json オブジェクト形式 全連動版） =====
     let whiskeyData = {};
-    let distLookup = {};    // 表示名 → { c, r, s, owner } の逆引きマップ
+    // 全蒸留所をフラットに持つ配列: { displayName, c, r, s, owner }
+    let allDistilleries = [];
 
-    const distInput = document.getElementById('distillery-input');
-    const ownerInput = document.getElementById('owner-input');
+    const distInput   = document.getElementById('distillery-input');
+    const ownerInput  = document.getElementById('owner-input');
     const subRegInput = document.getElementById('subregion-input');
-    const regInput = document.getElementById('region-input');
+    const regInput    = document.getElementById('region-input');
     const countryInput = document.getElementById('country-input');
 
-    // 蒸留所オブジェクトから表示名を作成する
-    // nameJa と nameEn があれば "日本語名 (英語名)" の形式にする
+    // 蒸留所オブジェクトから表示名を生成
     function distDisplayName(item) {
-      if (typeof item === 'string') {
-        // 旧形式（文字列）の場合はそのまま返す
-        return item.replace(/\s*\[.*?\]\s*$/, '').trim();
-      }
-      // 新形式（オブジェクト）の場合
+      if (typeof item === 'string') return item.replace(/\s*\[.*?\]\s*$/, '').trim();
       const ja = (item.nameJa || '').trim();
       const en = (item.nameEn || '').trim();
       if (ja && en) return ja + ' (' + en + ')';
       return ja || en || '';
     }
 
-    // whisky_data.json を読み込み、datalist と逆引きデータを構築
+    // whisky_data.json を読み込み
     fetch('whisky_data.json')
       .then(r => r.json())
       .then(data => {
         whiskeyData = data;
 
-        // 【逆引き用マップ作成】
-        // whisky_data.json の構造：国(c) -> 地方(r) -> 県/地区(s) -> 蒸留所リスト(d)
-        // 各蒸留所は { nameJa, nameEn, owner, startYear, notes, ... } のオブジェクト
+        // フラットな蒸留所リストを構築
         Object.keys(data).forEach(c => {
           Object.keys(data[c]).forEach(r => {
             Object.keys(data[c][r]).forEach(s => {
               data[c][r][s].forEach(item => {
                 const displayName = distDisplayName(item);
                 if (displayName) {
-                  distLookup[displayName] = {
+                  allDistilleries.push({
+                    displayName,
                     c,
                     r,
                     s,
                     owner: (typeof item === 'object' && item.owner) ? item.owner : ''
-                  };
+                  });
                 }
               });
             });
           });
         });
 
-        updateLocationLists();
-        console.log("Whisky data loaded successfully. 蒸留所数:", Object.keys(distLookup).length);
+        updateAllLists();
+        console.log("Whisky data loaded. 蒸留所数:", allDistilleries.length);
       })
       .catch(err => {
-        console.error('whisky_data.json の読み込みに失敗しました。ファイルが index.html と同じ階層にあるか確認してください:', err);
+        console.error('whisky_data.json 読み込み失敗:', err);
       });
 
-    // 候補リスト（datalist）を現在の入力状況に合わせて絞り込む
-    function updateLocationLists() {
-      const c = countryInput.value;
-      const r = regInput.value;
-      const s = subRegInput.value;
+    // 現在の各フィールドの値を元に、全候補リストを絞り込み更新
+    function updateAllLists() {
+      const cVal = countryInput.value.trim();
+      const rVal = regInput.value.trim();
+      const sVal = subRegInput.value.trim();
+      const oVal = ownerInput.value.trim();
 
-      let countries = [], regions = [], subRegions = [], distilleries = [];
-
-      Object.keys(whiskeyData).forEach(country => {
-        countries.push(country);
-        if (!c || c === country) {
-          Object.keys(whiskeyData[country]).forEach(region => {
-            regions.push(region);
-            if (!r || r === region) {
-              Object.keys(whiskeyData[country][region]).forEach(sub => {
-                if (sub !== '-') subRegions.push(sub);
-                if (!s || s === sub) {
-                  // オブジェクトから表示名を生成して候補に追加
-                  whiskeyData[country][region][sub].forEach(item => {
-                    const name = distDisplayName(item);
-                    if (name) distilleries.push(name);
-                  });
-                }
-              });
-            }
-          });
-        }
+      // 条件に合う蒸留所を絞り込む
+      const filtered = allDistilleries.filter(d => {
+        if (cVal && d.c !== cVal) return false;
+        if (rVal && d.r !== rVal) return false;
+        if (sVal && d.s !== sVal && d.s !== '-') return false;
+        if (oVal && d.owner !== oVal) return false;
+        return true;
       });
 
-      const fillDatalist = (id, items) => {
-        const dl = document.getElementById(id);
-        if (!dl) return;
-        dl.innerHTML = '';
-        // 重複を除去してソートして追加
-        [...new Set(items)].sort().forEach(v => {
-          const opt = document.createElement('option');
-          opt.value = v;
-          dl.appendChild(opt);
-        });
-      };
+      // 各フィールドの候補を抽出（重複排除・ソート）
+      const countries   = [...new Set(filtered.map(d => d.c))].sort();
+      const regions     = [...new Set(filtered.map(d => d.r))].sort();
+      const subRegions  = [...new Set(filtered.filter(d => d.s !== '-').map(d => d.s))].sort();
+      const distNames   = [...new Set(filtered.map(d => d.displayName))].sort();
+      const owners      = [...new Set(filtered.filter(d => d.owner).map(d => d.owner))].sort();
 
-      fillDatalist('countryList', countries);
-      fillDatalist('regionList', regions);
-      fillDatalist('subRegionList', subRegions);
-      fillDatalist('distilleryList', distilleries);
+      // 入力済みのフィールドは全候補を出す（自分自身は絞り込み対象外にする）
+      // → 国の候補は「国以外の条件」で絞る、等
+      const countryCandidates = [...new Set(allDistilleries.filter(d => {
+        if (rVal && d.r !== rVal) return false;
+        if (sVal && d.s !== sVal && d.s !== '-') return false;
+        if (oVal && d.owner !== oVal) return false;
+        return true;
+      }).map(d => d.c))].sort();
+
+      const regionCandidates = [...new Set(allDistilleries.filter(d => {
+        if (cVal && d.c !== cVal) return false;
+        if (sVal && d.s !== sVal && d.s !== '-') return false;
+        if (oVal && d.owner !== oVal) return false;
+        return true;
+      }).map(d => d.r))].sort();
+
+      const subRegCandidates = [...new Set(allDistilleries.filter(d => {
+        if (cVal && d.c !== cVal) return false;
+        if (rVal && d.r !== rVal) return false;
+        if (oVal && d.owner !== oVal) return false;
+        return d.s !== '-';
+      }).map(d => d.s))].sort();
+
+      const ownerCandidates = [...new Set(allDistilleries.filter(d => {
+        if (cVal && d.c !== cVal) return false;
+        if (rVal && d.r !== rVal) return false;
+        if (sVal && d.s !== sVal && d.s !== '-') return false;
+        return d.owner;
+      }).map(d => d.owner))].sort();
+
+      fillDatalist('countryList',   countryCandidates);
+      fillDatalist('regionList',    regionCandidates);
+      fillDatalist('subRegionList', subRegCandidates);
+      fillDatalist('distilleryList', distNames);
+      fillDatalist('ownerList',     ownerCandidates);
     }
 
-    // 蒸留所入力時の逆引き（国・地域・オーナーを自動入力）
-    distInput.addEventListener('change', () => {
-      const d = distInput.value;
-      if (distLookup[d]) {
-        const p = distLookup[d];
-        countryInput.value = p.c;
-        regInput.value = p.r;
-        subRegInput.value = (p.s === '-') ? '' : p.s;
-        // オーナーも自動入力
-        if (p.owner && ownerInput) {
-          ownerInput.value = p.owner;
-        }
-        updateLocationLists();
+    function fillDatalist(id, items) {
+      const dl = document.getElementById(id);
+      if (!dl) return;
+      dl.innerHTML = '';
+      items.forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v;
+        dl.appendChild(opt);
+      });
+    }
 
-        // 自動入力されたことを視覚的にフィードバック
-        const feedbackEls = [countryInput, regInput, subRegInput];
-        if (ownerInput) feedbackEls.push(ownerInput);
-        feedbackEls.forEach(el => {
+    // --- 蒸留所を選択 → 国・エリア・小地域・オーナーを自動入力 ---
+    distInput.addEventListener('change', () => {
+      const d = distInput.value.trim();
+      const match = allDistilleries.find(item => item.displayName === d);
+      if (match) {
+        countryInput.value = match.c;
+        regInput.value     = match.r;
+        subRegInput.value  = (match.s === '-') ? '' : match.s;
+        ownerInput.value   = match.owner || '';
+
+        // 自動入力フィードバック（黄色に一瞬光る）
+        [countryInput, regInput, subRegInput, ownerInput].forEach(el => {
           el.style.transition = 'background-color 0.4s';
           el.style.backgroundColor = '#fff4e0';
           setTimeout(() => { el.style.backgroundColor = ''; }, 800);
         });
-
-        updateJsonPreview();
       }
+      updateAllLists();
+      updateJsonPreview();
     });
 
-    // 国・地域変更時にリスト候補を絞り込み
+    // --- 国を変更 → 下位をクリアして候補絞り込み ---
     countryInput.addEventListener('change', () => {
       regInput.value = '';
       subRegInput.value = '';
       distInput.value = '';
-      updateLocationLists();
+      ownerInput.value = '';
+      updateAllLists();
       updateJsonPreview();
     });
+
+    // --- エリアを変更 → 下位をクリアして候補絞り込み ---
     regInput.addEventListener('change', () => {
       subRegInput.value = '';
       distInput.value = '';
-      updateLocationLists();
+      updateAllLists();
       updateJsonPreview();
     });
+
+    // --- 小地域を変更 → 蒸留所をクリアして候補絞り込み ---
     subRegInput.addEventListener('change', () => {
       distInput.value = '';
-      updateLocationLists();
+      updateAllLists();
+      updateJsonPreview();
+    });
+
+    // --- オーナーを変更 → 蒸留所候補を絞り込み ---
+    ownerInput.addEventListener('change', () => {
+      distInput.value = '';
+      updateAllLists();
       updateJsonPreview();
     });
 
