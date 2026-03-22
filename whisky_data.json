@@ -1,4 +1,4 @@
-{
+﻿{
   "AMERICAN": {
     "アイオワ": {
       "スワイシャー": [
@@ -1987,7 +1987,7 @@
       ]
     },
     "北海道": {
-      "北海道": [
+      "十勝": [
         {
           "nameJa": "Taiki Cosmic Glen Distillery",
           "nameEn": "Taiki Cosmic Glen Distillery",
@@ -1998,20 +1998,44 @@
           "prefectureEn": "Hokkaido"
         },
         {
-          "nameJa": "サワマチ蒸留所",
-          "nameEn": "Sawamachi Distillery",
-          "owner": "エムエスティー合同会社",
-          "startYear": "2024",
-          "notes": "北海道余市郡余市町",
+          "nameJa": "十勝蒸留所",
+          "nameEn": "Tokachi Distillery",
+          "owner": "十勝蒸溜所（十勝酒造）",
+          "startYear": "2025",
+          "notes": "北海道中川郡幕別町",
           "regionEn": "Hokkaido",
           "prefectureEn": "Hokkaido"
-        },
+        }
+      ],
+      "道北": [
+        {
+          "nameJa": "利尻蒸留所",
+          "nameEn": "Rishiri Distillery",
+          "owner": "カムイウイスキー",
+          "startYear": "2022",
+          "notes": "北海道利尻郡利尻町",
+          "regionEn": "Hokkaido",
+          "prefectureEn": "Hokkaido"
+        }
+      ],
+      "道南": [
         {
           "nameJa": "ディ・トリッパー蒸留所",
           "nameEn": "Di Tripper Distillery",
           "owner": "ビハインド・ザ・カスク",
           "startYear": "2022",
           "notes": "北海道函館市",
+          "regionEn": "Hokkaido",
+          "prefectureEn": "Hokkaido"
+        }
+      ],
+      "道央": [
+        {
+          "nameJa": "サワマチ蒸留所",
+          "nameEn": "Sawamachi Distillery",
+          "owner": "エムエスティー合同会社",
+          "startYear": "2024",
+          "notes": "北海道余市郡余市町",
           "regionEn": "Hokkaido",
           "prefectureEn": "Hokkaido"
         },
@@ -2025,29 +2049,11 @@
           "prefectureEn": "Hokkaido"
         },
         {
-          "nameJa": "厚岸蒸留所",
-          "nameEn": "Akkeshi Distillery",
-          "owner": "堅展実業",
-          "startYear": "2016",
-          "notes": "北海道厚岸郡厚岸町",
-          "regionEn": "Hokkaido",
-          "prefectureEn": "Hokkaido"
-        },
-        {
           "nameJa": "札幌酒精工業 札幌工場",
           "nameEn": "Sapporo Shusei Kogyo Sapporo Factory",
           "owner": "札幌酒精工業",
           "startYear": "不明(※ブレンド主体)",
           "notes": "北海道",
-          "regionEn": "Hokkaido",
-          "prefectureEn": "Hokkaido"
-        },
-        {
-          "nameJa": "十勝蒸留所",
-          "nameEn": "Tokachi Distillery",
-          "owner": "十勝蒸溜所（十勝酒造）",
-          "startYear": "2025",
-          "notes": "北海道中川郡幕別町",
           "regionEn": "Hokkaido",
           "prefectureEn": "Hokkaido"
         },
@@ -2095,13 +2101,15 @@
           "notes": "北海道余市郡余市町",
           "regionEn": "Hokkaido",
           "prefectureEn": "Hokkaido"
-        },
+        }
+      ],
+      "釧路・根室": [
         {
-          "nameJa": "利尻蒸留所",
-          "nameEn": "Rishiri Distillery",
-          "owner": "カムイウイスキー",
-          "startYear": "2022",
-          "notes": "北海道利尻郡利尻町",
+          "nameJa": "厚岸蒸留所",
+          "nameEn": "Akkeshi Distillery",
+          "owner": "堅展実業",
+          "startYear": "2016",
+          "notes": "北海道厚岸郡厚岸町",
           "regionEn": "Hokkaido",
           "prefectureEn": "Hokkaido"
         }
