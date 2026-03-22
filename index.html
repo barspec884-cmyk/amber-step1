@@ -725,7 +725,6 @@
                 <div class="value-box" id="distilleryChip"><span class="placeholder">タップして選択</span></div>
                 <button class="btn-open-modal" id="openDistilleryPicker" type="button">＋ 蒸留所を選ぶ</button>
                 <input type="hidden" id="distillery-input" value="">
-                <datalist id="distilleryList"></datalist>
               </div>
 
               <!-- 5. 原産国 -->
@@ -974,107 +973,47 @@
   </div>
 
   <style>
-    .dist-picker-search {
-      margin-bottom: 10px;
-    }
+    .dist-picker-search { margin-bottom: 10px; }
     .dist-picker-search input {
-      width: 100%;
-      border: 1.4px solid rgba(63,53,45,.15);
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 16px;
-      outline: none;
-      box-sizing: border-box;
-      background: #fff;
+      width: 100%; border: 1.4px solid rgba(63,53,45,.15); border-radius: 10px;
+      padding: 12px 14px; font-size: 16px; outline: none; box-sizing: border-box; background: #fff;
     }
     .dist-picker-search input:focus {
-      border-color: var(--btn-orange);
-      box-shadow: 0 0 0 2px rgba(206,128,77,0.2);
+      border-color: var(--btn-orange); box-shadow: 0 0 0 2px rgba(206,128,77,0.2);
     }
-    .dist-picker-info {
-      font-size: 12px;
-      color: var(--text-sub);
-      text-align: center;
-      margin-bottom: 8px;
-    }
+    .dist-picker-info { font-size: 12px; color: var(--text-sub); text-align: center; margin-bottom: 8px; }
     .wheel-wrapper {
-      position: relative;
-      height: 240px;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1.5px solid rgba(63,53,45,.10);
-      background: #fff;
+      position: relative; height: 240px; overflow: hidden; border-radius: 12px;
+      border: 1.5px solid rgba(63,53,45,.10); background: #fff;
     }
     .wheel-highlight {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 48px;
-      transform: translateY(-50%);
-      background: var(--spec-accent-soft);
-      border-top: 2px solid var(--spec-accent);
-      border-bottom: 2px solid var(--spec-accent);
-      z-index: 1;
-      pointer-events: none;
+      position: absolute; top: 50%; left: 0; right: 0; height: 48px; transform: translateY(-50%);
+      background: var(--spec-accent-soft); border-top: 2px solid var(--spec-accent);
+      border-bottom: 2px solid var(--spec-accent); z-index: 1; pointer-events: none;
     }
-    .wheel-fade-top,
-    .wheel-fade-bottom {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 96px;
-      z-index: 2;
-      pointer-events: none;
+    .wheel-fade-top, .wheel-fade-bottom {
+      position: absolute; left: 0; right: 0; height: 96px; z-index: 2; pointer-events: none;
     }
-    .wheel-fade-top {
-      top: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0));
-    }
-    .wheel-fade-bottom {
-      bottom: 0;
-      background: linear-gradient(to top, rgba(255,255,255,0.92), rgba(255,255,255,0));
-    }
+    .wheel-fade-top { top: 0; background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(255,255,255,0)); }
+    .wheel-fade-bottom { bottom: 0; background: linear-gradient(to top, rgba(255,255,255,0.92), rgba(255,255,255,0)); }
     .wheel-scroll {
-      position: absolute;
-      inset: 0;
-      overflow-y: auto;
-      scroll-snap-type: y mandatory;
-      -webkit-overflow-scrolling: touch;
-      z-index: 3;
+      position: absolute; inset: 0; overflow-y: auto; scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch; z-index: 3;
     }
     .wheel-scroll::-webkit-scrollbar { display: none; }
-    .wheel-spacer {
-      height: 96px;
-      flex-shrink: 0;
-    }
+    .wheel-spacer { height: 96px; flex-shrink: 0; }
     .wheel-item {
-      height: 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      scroll-snap-align: center;
-      cursor: pointer;
-      transition: opacity 0.15s;
-      padding: 0 12px;
+      height: 48px; display: flex; flex-direction: column; justify-content: center;
+      align-items: center; text-align: center; scroll-snap-align: center; cursor: pointer;
+      transition: opacity 0.15s; padding: 0 12px;
     }
     .wheel-item-main {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-main);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
+      font-size: 14px; font-weight: 700; color: var(--text-main);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
     }
     .wheel-item-sub {
-      font-size: 10px;
-      color: var(--text-sub);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
+      font-size: 10px; color: var(--text-sub);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
     }
   </style>
 
@@ -1958,7 +1897,6 @@
       if (q) {
         candidates = candidates.filter(d => d.displayName.toLowerCase().includes(q));
       }
-      // 重複排除してソート
       const seen = new Set();
       wheelItems = [];
       candidates.sort((a, b) => a.displayName.localeCompare(b.displayName, 'ja'));
@@ -1974,7 +1912,6 @@
         : '該当する蒸留所がありません';
 
       wheelScroll.innerHTML = '';
-      // 上下のスペーサー（中央揃え用）
       const topSpacer = document.createElement('div');
       topSpacer.className = 'wheel-spacer';
       wheelScroll.appendChild(topSpacer);
@@ -1983,7 +1920,6 @@
         const el = document.createElement('div');
         el.className = 'wheel-item';
         el.dataset.index = i;
-        // 日本語名と英語名を分離して表示
         const parts = d.displayName.match(/^(.+?)\s*\((.+)\)$/);
         if (parts) {
           el.innerHTML = `<div class="wheel-item-main">${parts[1]}</div><div class="wheel-item-sub">${parts[2]}</div>`;
@@ -1991,7 +1927,6 @@
           el.innerHTML = `<div class="wheel-item-main">${d.displayName}</div>`;
         }
         el.addEventListener('click', () => {
-          // クリックでその項目を中央にスクロール
           const targetTop = el.offsetTop - 96;
           wheelScroll.scrollTo({ top: targetTop, behavior: 'smooth' });
         });
@@ -2002,11 +1937,10 @@
       bottomSpacer.className = 'wheel-spacer';
       wheelScroll.appendChild(bottomSpacer);
 
-      // 選択済みの蒸留所があればその位置にスクロール
       if (wheelSelectedName) {
         const idx = wheelItems.findIndex(d => d.displayName === wheelSelectedName);
         if (idx >= 0) {
-          const target = wheelScroll.children[idx + 1]; // +1 for topSpacer
+          const target = wheelScroll.children[idx + 1];
           if (target) {
             setTimeout(() => {
               wheelScroll.scrollTo({ top: target.offsetTop - 96, behavior: 'auto' });
@@ -2017,18 +1951,15 @@
     }
 
     function getWheelSelectedIndex() {
-      const scrollCenter = wheelScroll.scrollTop + 120; // 240/2
+      const scrollCenter = wheelScroll.scrollTop + 120;
       let closest = 0;
       let minDist = Infinity;
       wheelItems.forEach((_, i) => {
-        const el = wheelScroll.children[i + 1]; // +1 for spacer
+        const el = wheelScroll.children[i + 1];
         if (!el) return;
-        const itemCenter = el.offsetTop + 24; // 48/2
+        const itemCenter = el.offsetTop + 24;
         const dist = Math.abs(scrollCenter - itemCenter);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = i;
-        }
+        if (dist < minDist) { minDist = dist; closest = i; }
       });
       return closest;
     }
@@ -2045,6 +1976,7 @@
       }
     }
 
+    // ★ 逆引き：蒸留所選択 → 国・エリア・小地域・オーナーを自動入力
     function applyDistSelection(name) {
       distInput.value = name;
       wheelSelectedName = name;
@@ -2054,6 +1986,7 @@
         regInput.value = match.r;
         subRegInput.value = (match.s === '-') ? '' : match.s;
         ownerInput.value = match.owner || '';
+        // 黄色フラッシュ
         [countryInput, regInput, subRegInput, ownerInput].forEach(el => {
           el.style.transition = 'background-color 0.4s';
           el.style.backgroundColor = '#fff4e0';
@@ -2101,7 +2034,6 @@
       distPickerBackdrop.classList.remove('is-open');
     });
 
-    // 初期表示
     updateDistChip();
 
     // --- 国を変更 → 下位をクリアして候補絞り込み＋種別再描画 ---
