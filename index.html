@@ -771,7 +771,10 @@
               <!-- 4. 蒸留所（逆引き対応） -->
               <div class="input-group column">
                 <div><span class="label-main">蒸留所</span><span class="label-sub">Distillery:</span></div>
-                <input type="text" id="distillery-input" list="distilleryList" placeholder="蒸留所を入力（逆引き対応）">
+                <div class="cd-display">
+                  <input type="text" id="distillery-input" list="distilleryList" placeholder="蒸留所を入力（逆引き対応）" style="flex:1;border:none;outline:none;font-size:16px;color:var(--text-main);background:transparent;font-family:inherit;min-width:0;">
+                  <button type="button" class="cd-clear" id="distillery-clear" style="display:none">×</button>
+                </div>
                 <datalist id="distilleryList"></datalist>
               </div>
 
@@ -2063,6 +2066,28 @@
 
     // 初期状態を同期
     syncCountryDropdownUI();
+
+    // ===== 蒸留所 ×クリアボタン =====
+    const distClearBtn = document.getElementById('distillery-clear');
+
+    function syncDistClearBtn() {
+      distClearBtn.style.display = distInput.value.trim() ? 'flex' : 'none';
+    }
+
+    distClearBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      distInput.value = '';
+      syncDistClearBtn();
+      updateAllLists();
+      updateJsonPreview();
+    });
+
+    distInput.addEventListener('input', syncDistClearBtn);
+    distInput.addEventListener('change', function() {
+      syncDistClearBtn();
+    });
+
+    syncDistClearBtn();
 
   </script>
 </body>
