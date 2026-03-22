@@ -845,7 +845,7 @@
 
             <div class="input-group column">
               <div><span class="label-main">場所</span><span class="label-sub">Location:</span></div>
-              <input type="text" id="location-input" placeholder="例: 自宅 / Bar ABC / 友人宅">
+              <input type="text" id="location-input" placeholder="例: 自宅 / Bar SPEC / 友人宅">
             </div>
 
             <div class="input-group column">
@@ -1574,9 +1574,124 @@
       });
     }
 
-    document.getElementById('saveDraftBtn').addEventListener('click', () => {
+    const DRAFT_STORAGE_KEY = 'amberNexusStep1Draft';
+
+    function collectCurrentState() {
+      const getVal = (id) => {
+        const el = document.getElementById(id);
+        return el ? el.value : '';
+      };
+      const getChecked = (id) => {
+        const el = document.getElementById(id);
+        return !!(el && el.checked);
+      };
+      const getFiles = (ids) => ids.map(id => {
+        const el = document.getElementById(id);
+        return el && el.files && el.files[0] ? el.files[0].name : '';
+      }).filter(Boolean);
+
+      return {
+        sampleNo: getVal('sample-no'),
+        datetime: getVal('datetime-input'),
+        blind: getChecked('blind-toggle'),
+        brand: getVal('brand-input'),
+        distillery: getVal('distillery-input'),
+        owner: getVal('owner-input'),
+        country: getVal('country-input'),
+        region: getVal('region-input'),
+        subregion: getVal('subregion-input'),
+        location: getVal('location-input'),
+        abvHidden: getVal('abvHidden'),
+        ageDisplay: getVal('ageDisplay'),
+        ageModeHidden: getVal('ageModeHidden'),
+        ageYearsHidden: getVal('ageYearsHidden'),
+        servingHidden: getVal('servingHidden'),
+        conditionHidden: getVal('conditionHidden'),
+        weatherHidden: getVal('weatherHidden'),
+        jsonPreview: document.getElementById('jsonPreview') ? document.getElementById('jsonPreview').textContent : '',
+        specDraftSelected: [...draftSelected],
+        specAppliedSelected: [...appliedSelected],
+        specDraftOtherText: draftOtherText,
+        specAppliedOtherText: appliedOtherText,
+        photoNames1: getFiles(['camera-input-1', 'gallery-input-1']),
+        photoNames2: getFiles(['camera-input-2', 'gallery-input-2'])
+      };
+    }
+
+    function restoreCurrentState(state) {
+      if (!state || typeof state !== 'object') return;
+      const setVal = (id, value) => {
+        const el = document.getElementById(id);
+        if (el && value !== undefined && value !== null) el.value = value;
+      };
+      const setChecked = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.checked = !!value;
+      };
+
+      setVal('sample-no', state.sampleNo || '');
+      setVal('datetime-input', state.datetime || '');
+      setChecked('blind-toggle', state.blind);
+      setVal('brand-input', state.brand || '');
+      setVal('distillery-input', state.distillery || '');
+      setVal('owner-input', state.owner || '');
+      setVal('country-input', state.country || '');
+      setVal('region-input', state.region || '');
+      setVal('subregion-input', state.subregion || '');
+      setVal('location-input', state.location || '');
+      setVal('abvHidden', state.abvHidden || '');
+      setVal('ageDisplay', state.ageDisplay || '');
+      setVal('ageModeHidden', state.ageModeHidden || '');
+      setVal('ageYearsHidden', state.ageYearsHidden || '');
+      setVal('servingHidden', state.servingHidden || '');
+      setVal('conditionHidden', state.conditionHidden || '');
+      setVal('weatherHidden', state.weatherHidden || '');
+
+      if (Array.isArray(state.specDraftSelected)) {
+        draftSelected.clear();
+        state.specDraftSelected.forEach(code => draftSelected.add(code));
+      }
+      if (Array.isArray(state.specAppliedSelected)) {
+        appliedSelected.clear();
+        state.specAppliedSelected.forEach(code => appliedSelected.add(code));
+      }
+      draftOtherText = state.specDraftOtherText || '';
+      appliedOtherText = state.specAppliedOtherText || '';
+
+      const otherInput = document.getElementById('other-text');
+      if (otherInput) otherInput.value = draftOtherText;
+
+      initBlindToggle();
+      renderOptions();
+      renderSelectedChips();
+      renderStickyDraftChips();
+      syncCountryDropdownUI();
+      syncDistClearBtn();
       updateJsonPreview();
-      alert('下書き保存用の値をプレビューに反映しました。');
+    }
+
+    function saveDraftToLocalStorage() {
+      updateJsonPreview();
+      const payload = collectCurrentState();
+      localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(payload));
+    }
+
+    function loadDraftFromLocalStorage() {
+      const raw = localStorage.getItem(DRAFT_STORAGE_KEY);
+      if (!raw) return false;
+      try {
+        const state = JSON.parse(raw);
+        restoreCurrentState(state);
+        return true;
+      } catch (err) {
+        console.error('下書き復元失敗:', err);
+        return false;
+      }
+    }
+
+    document.getElementById('saveDraftBtn').addEventListener('click', () => {
+      saveDraftToLocalStorage();
+      alert('下書きをこの端末に保存しました。');
     });
 
     // ===== コンテキストモーダル（飲み方・体調・天気） =====
@@ -1798,6 +1913,11 @@
       })
       .catch(err => {
         console.error('whisky_data.json 読み込み失敗:', err);
+        const currentPreview = document.getElementById('jsonPreview');
+        if (currentPreview && !currentPreview.textContent.trim()) {
+          updateJsonPreview();
+        }
+        alert('whisky_data.json が見つからない、または読み込めないため、蒸留所候補の自動連動は使えません。');
       });
 
     // 現在の各フィールドの値を元に、全候補リストを絞り込み更新
@@ -2087,6 +2207,36 @@
       syncDistClearBtn();
     });
 
+    countryInput.addEventListener('input', () => {
+      syncCountryDropdownUI();
+      updateAllLists();
+      updateJsonPreview();
+      renderOptions();
+    });
+
+    regInput.addEventListener('input', () => {
+      updateAllLists();
+      updateJsonPreview();
+    });
+
+    subRegInput.addEventListener('input', () => {
+      updateAllLists();
+      updateJsonPreview();
+    });
+
+    ownerInput.addEventListener('input', () => {
+      updateAllLists();
+      updateJsonPreview();
+    });
+
+    window.addEventListener('beforeunload', () => {
+      saveDraftToLocalStorage();
+    });
+
+    loadDraftFromLocalStorage();
+    updateAllLists();
+    updateJsonPreview();
+    syncCountryDropdownUI();
     syncDistClearBtn();
 
   </script>
